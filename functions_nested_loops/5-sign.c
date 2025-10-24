@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_sign - verify all the line 
+ * print_sign - verify all the line
  * @n: The number to check.
  *
  * Return: Always 0.
