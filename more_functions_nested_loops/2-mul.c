@@ -3,13 +3,13 @@
 
 /**
  * mul -  function that multiplies two integers.
- * @a: first integer 
+ * @a: first integer
  * @b: second integer
- * 
+ *
  * return: product of a*b
  */
 
 int mul(int a, int b)
 {
-    return (a * b);
+	return (a * b);
 }
