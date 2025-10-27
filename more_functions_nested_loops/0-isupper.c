@@ -4,7 +4,7 @@
 /**
 * _isupper - checks for uppercase character.
 *
-* retrun 0 (success)
+* retrun 0 (success _isupper)
 */
 
 int _isupper(int c)
