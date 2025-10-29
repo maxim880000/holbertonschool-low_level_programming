@@ -1,9 +1,9 @@
 #include <stdio.h>
 /**
-* main - prints the numbers from 1 to 100
-*
-* Return : == 0 (succefuly)
-*/
+ * main - prints the numbers from 1 to 100, followed by a new line.
+ * @i: variable 
+ * Return: Always 0.
+ */
 
 int main(void)
 {
