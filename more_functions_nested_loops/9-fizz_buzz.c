@@ -17,9 +17,15 @@ int main(void)
 		else if (i % 3 == 0)
 		printf("Fizz");
 
-		else
+		else if (i % 5 == 0)
 		printf("Buzz");
+
+		else
+		printf("%d", i);
+
+		if (i <= 99)
+		printf(" ");
 	}
 	putchar('\n');
-	return (O);
+	return (0);
 }
