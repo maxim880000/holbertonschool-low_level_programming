@@ -18,6 +18,7 @@ int main(void)
 		printf("Fizz")
 
 		else
+		printf("Buzz");
 	}
 	putchar('/n');
 	return (O);
