@@ -4,7 +4,7 @@
  * rev_string - Inverse une chaîne de caractères "sur place" (in-place).
  * @s: Le pointeur vers la chaîne à inverser.
  *
- * Description: Utilise la méthode des "deux pointeurs". 
+ * Description: Utilise la méthode des "deux pointeurs".
  */
 void rev_string(char *s)
 {
