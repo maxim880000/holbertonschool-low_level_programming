@@ -8,13 +8,12 @@
 char *_strcat(char *dest, char *src)
 {
 	int l_dest = 0;
+	int l_src =0;
 
 	while (dest[l_dest] != '\0')
 	{
 		l_dest++;
 	}
-
-	int l_src =0;
 
 	while (src[l_src] != '\0')
 	{
