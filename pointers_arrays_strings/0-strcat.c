@@ -4,7 +4,7 @@
 * @dest: Le pointeur vers la chaîne de destination.
 * @src: Le pointeur vers la chaîne source.
 *
-* Return : return(dest)
+* Return: Un pointeur vers la chaîne résultante 'dest'.
 */
 
 char *_strcat(char *dest, char *src)
