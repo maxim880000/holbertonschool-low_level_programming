@@ -43,5 +43,5 @@ int _atoi(char *s)
 		}
 		i++;
 	}
-		return(digit_found)
+		return(digit_found);
 }
