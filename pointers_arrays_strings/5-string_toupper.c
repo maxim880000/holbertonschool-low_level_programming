@@ -1,26 +1,21 @@
 #include "main.h"
+
 /**
-* _strncpy - copies a string
-* @dest: destination string
-* @src: source string
-* @n: maximum number of bytes to copy
-*
-* Return: pointer to dest
-*/
-
-char *string_toupper(char *)
+ * string_toupper - converts all lowercase
+ * @str: pointer to the string
+ *
+ * Return: pointer to the modified string
+ */
+char *string_toupper(char *str)
 {
-	int a;
+	int i = 0;
 
-	for (a = 0; a < n && src[a] != '\0'; a++)
+	while (str[i] != '\0')
 	{
-		dest[a] = src[a];
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] = str[i] - ('a' - 'A');
+		i++;
 	}
 
-	for (; a < n; a++)
-	{
-		dest[a] = '\0';
-	}
-
-	return (dest);
+	return (str);
 }
