@@ -1,6 +1,8 @@
 #include "main.h"
 /**
 * _strcat - fonction pour coller deux partie
+* @dest: Le pointeur vers la chaîne de destination.
+* @src: Le pointeur vers la chaîne source.
 *
 * Return : return(dest)
 */
