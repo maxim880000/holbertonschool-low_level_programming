@@ -1,14 +1,14 @@
 #include "main.h"
 /**
-* _strcat - fonction pour coller deux partie 
-* 
+* _strcat - fonction pour coller deux partie
+*
 * Return : return(dest)
 */
 
 char *_strcat(char *dest, char *src)
 {
 	int l_dest = 0;
-	int l_src =0;
+	int l_src = 0;
 
 	while (dest[l_dest] != '\0')
 	{
