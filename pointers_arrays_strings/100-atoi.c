@@ -3,45 +3,43 @@
  * _atoi - Convertit une chaîne de caractères en entier.
  * @s: La chaîne de caractères à convertir.
  *
- * Return: L'entier converti à partir de la chaîne.
+ * Return: L'entier converti.
  */
 int _atoi(char *s)
 {
 	int i;
 	int sign;
 	unsigned int result;
-	int digit_found;
+	int number_found;
 
 	i = 0;
 	sign = 1;
 	result = 0;
-	digit_found = 0;
+	number_found = 0;
 
 	while (s[i] != '\0')
 	{
-		if (s[i] == '-')
+		if (s[i] >= '0' && s[i] <= '9')
 		{
-			if (digit_found)
-				break;
+			number_found = 1;
+			result = (result * 10) + (s[i] - '0');
+		}
+		else if (number_found == 1)
+		{
+			break;
+		}
+		else if (s[i] == '-')
+		{
 			sign *= -1;
 		}
 		else if (s[i] == '+')
 		{
-			if (digit_found)
-				break;
+			/* On ne fait rien au signe, on continue */
 			sign *= 1;
 		}
-		else if (s[i] >= '0' && s[i] <= '9')
-		{
-			digit_found = 1;
-			result = (result * 10) + (s[i] - '0');
-		}
-		else
-		{
-			if (digit_found)
-				break;
-		}
+
 		i++;
 	}
-		return(digit_found);
+
+	return (result * sign);
 }
