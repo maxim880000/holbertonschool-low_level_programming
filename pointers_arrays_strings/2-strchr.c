@@ -2,12 +2,21 @@
 /**
 * _strchr - ocates a character in a string.
 * @s: pointer char
-* @c: caractere variable 
+* @c: caractere variable
 *
-* Return: pointer to first occurrence c in the string s or NULL if the character is not found
+* Return: pointer == c ou NULL
 */
 
 char *_strchr(char *s, char c)
 {
-	int i 
+	int i;
+
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if (s[i] == c)
+		{
+			return (&s[i]);
+		}
+	}
+		return ('\0');
 }
