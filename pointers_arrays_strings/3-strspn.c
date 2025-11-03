@@ -4,6 +4,7 @@
 * @s: pointer
 * @accept: pointer
 *
+* Return: a int i
 */
 
 unsigned int _strspn(char *s, char *accept)
