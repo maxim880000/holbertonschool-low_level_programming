@@ -4,7 +4,7 @@
 /**
  * _strstr - locates a substring in a string
  * @haystack: string to search
- * @needle: substring 
+ * @needle: substring
  *
  * Return: pointer to the beginning of the located substring,
  * or NULL
