@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 /**
-* is_prime_number - prints a string, followed by a new line.
+* _puts_recursion - prints a string, followed by a new line.
 * @s: pointer
 *
 * Return:
@@ -11,7 +11,7 @@ void _puts_recursion(char *s)
 {
 	if (s[0] == '\0')
 	{
-		_putchar('/n');
+		_putchar('\n');
 		return;
 	}
 
