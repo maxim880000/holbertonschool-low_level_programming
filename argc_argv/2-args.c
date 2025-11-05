@@ -11,9 +11,9 @@ int main(int argc, char **argv)
 {
 	int i = 0;
 	/*  continue tant que i < argc */
-	for (i = 0; i == argv; i++)
+	for (i = 0; i = argv; i++)
 	{
-		putchar('%d\n', argv[i]);
+		_putchar('%c\n', argv[i]);
 	}
 		return (0);
 }
