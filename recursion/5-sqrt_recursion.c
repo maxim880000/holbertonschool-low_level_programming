@@ -6,7 +6,7 @@
 * @n: integer
 * @i: integer pour parcourir
 *
-* Return: la racine
+* Return: la racine 1
 */
 int _sqrt_helper(int n, int i);
 
