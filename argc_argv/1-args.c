@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 {
 	(void)argv;
 	/* on a pas besoin de argv */
-	printf("%d\n", argc);
+	printf("%d\n", argc - 1);
 	/* print nb arguments sans compter le nom du program[0] */
 	return (0);
 }
