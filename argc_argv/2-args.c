@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 	/*  continue tant que i < argc */
 	for (i = 0; i < argc; i++)
 	{
+		/* print chaque argument sur une ligne */
 		printf("%s\n", argv[i]);
 	}
 		return (0);
