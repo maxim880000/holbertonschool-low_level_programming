@@ -8,7 +8,7 @@
 */
 
 
-int is_prime_number(int n);
+int is_prime_number(int n)
 {
 	int i = 0;
 
