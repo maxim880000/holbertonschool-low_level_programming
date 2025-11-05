@@ -1,5 +1,7 @@
 #include "main.h"
 #include <stdio.h>
+
+int _sqrt_helper(int n, int i);
 /**
 * _sqrt_helper - recursively finds the natural square root of n
 * @n: the number to find the square root of
@@ -8,7 +10,10 @@
 * Return: the square root of n if it exists, -1 otherwise
 */
 
-int _sqrt_helper(int n, int i);
+int _sqrt_recursion(int n)
+{
+	return (_sqrt_helper(n, 0));
+}
 
 /**
 * _sqrt_recursion - returns the natural square root of a number
@@ -17,10 +22,6 @@ int _sqrt_helper(int n, int i);
 * Return: the square root of n if it exists, -1 otherwise
 */
 
-int _sqrt_recursion(int n)
-{
-	return (_sqrt_helper(n, 0));
-}
 int _sqrt_helper(int n, int i)
 {
 		if (n < 0)
