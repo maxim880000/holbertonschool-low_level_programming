@@ -8,7 +8,9 @@
  */
 int main(int argc, char **argv)
 {
-	(void)argc;  // on ignore argc pas besoin
-	printf("%s\n", argv[0]);  // afficher ce qu'il y a dans la 1ER case
-	return 0;
+	/* On ignore argc car il n'est pas utilisé */
+	(void)argc;
+	/* Affiche le nom du programme (argv[0]) */
+	printf("%s\n", argv[0]);
+	return (0);
 }
