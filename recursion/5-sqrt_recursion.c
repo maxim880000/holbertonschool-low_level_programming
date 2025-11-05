@@ -1,19 +1,20 @@
 #include "main.h"
 #include <stdio.h>
 /**
-* _sqrt_helper - helper fonction
-* @n: integer
-* @i: integer pour parcourir
+* _sqrt_helper - recursively finds the natural square root of n
+* @n: the number to find the square root of
+* @i: the current candidate being tested
 *
-* Return: la racine 1
+* Return: the square root of n if it exists, -1 otherwise
 */
+
 int _sqrt_helper(int n, int i);
 
 /**
-* _sqrt_recursion - returns the natural square root of a number.
-* @n: integer
+* _sqrt_recursion - returns the natural square root of a number
+* @n: the number to find the square
 *
-* Return: he square root of n if it exists, -1 otherwise
+* Return: the square root of n if it exists, -1 otherwise
 */
 
 int _sqrt_recursion(int n)
