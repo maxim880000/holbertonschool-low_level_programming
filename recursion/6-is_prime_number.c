@@ -8,11 +8,8 @@
 * Return: retunr 0
 */
 
-
 int is_prime_number(int n, int i)
-
 {
-
 	if (n < 2)
 		return (0);
 
