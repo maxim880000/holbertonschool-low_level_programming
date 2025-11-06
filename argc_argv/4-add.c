@@ -3,14 +3,12 @@
 #include <ctype.h>
 /* pour avoir isdigit */
 
-/*
-* number_yn - vérifie si une chaîne contient uniquement des chiffres
-* @s: la chaîne à vérifier
-*
-* Return: 1 si c’est un nombre sinon 0
-*/
-
-/* verfife si la chaine contient que des chiffres */
+/**
+ * number_yn - vérifie si une chaîne contient que des chiffres
+ * @s: la chaîne à vérifier
+ *
+ * Return: 1 si c’est un nombre sinon 0
+ */
 int number_yn(char *s)
 {
 	int i;
@@ -19,7 +17,7 @@ int number_yn(char *s)
 	if (s[0] == '\0')
 		return (0);
 
-	/* on parcours chque caractère du tableau */
+	/* on parcours chaque caractère du tableau */
 	for (i = 0; s[i] != '\0'; i++)
 	{
 		/* si ce n'est pas un chiffre alors faux r(0) */
@@ -30,14 +28,13 @@ int number_yn(char *s)
 	return (1);
 }
 
-/*
-* main - additionne tous les nb + argument
-* @argc: nb total d’arguments
-* @argv: tableau avec  les arguments
-*
-* Return: 0 si succès, 1 si erreur
-*/
-
+/**
+ * main - additionne tous les nombres positifs passés en arguments
+ * @argc: nombre d’arguments
+ * @argv: tableau d’arguments
+ *
+ * Return: 0 si succès, 1 si erreur
+ */
 int main(int argc, char **argv)
 {
 	int i;
@@ -53,7 +50,7 @@ int main(int argc, char **argv)
 	/* on veut parcourir tout depuis argv[1] car [0] = nom, i<nb arg */
 	for (i = 1; i < argc; i++)
 	{
-		/* conditions la chaine ne contient pas que des chiffre alors: */
+		/* conditions la chaine ne contient pas que des chiffres alors: */
 		if (!number_yn(argv[i]))
 		{
 			printf("Error\n");
