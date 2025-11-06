@@ -35,7 +35,7 @@ int number_yn(char *s)
 * @argc: nb total d’arguments
 * @argv: tableau avec  les arguments
 *
-Return: 0 si succès, 1 si erreur
+* Return: 0 si succès, 1 si erreur
 */
 
 int main(int argc, char **argv)
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 		}
 
 		/* on convertit la chaine en entier et on met dans sm  */
-		sm >= atoi(argv[i]);
+		sm += atoi(argv[i]);
 	}
 
 	printf("%d\n", sm);
