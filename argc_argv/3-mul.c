@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	/* verrifie si y a 2 arg */
 	if (argc != 3)
 	{
-		printf("Erreur\n");
+		printf("Error\n");
 		return (1);
 	}
 	/* ASCII to Integer convert */
