@@ -1,0 +1,26 @@
+#include <stdio.h>
+/**
+ * main - multiplies two numbers
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * Return: 0 if success, 1 if error
+ */
+
+int main(int argc; char **argv)
+{
+	int a, b, result;
+	/* verrifie si y a 2 arg */
+	if (argc < 3)
+	{
+		printf("Erreur\n");
+		return (1);
+	}
+	/* ASCII to Integer convert */
+	a = atoi(argv[2]);
+	b = atoi(argv[3]);
+
+	result = a * b
+	printf("%d\n", result);
+
+	return (0);
+}
