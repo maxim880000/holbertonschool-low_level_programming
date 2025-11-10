@@ -10,10 +10,10 @@
 
 /* creation de tableau dynamique */
 char *create_array(unsigned int size, char c)
-{
+	
 	char *array;
 	int i;
-
+{
 	/* verifie la premiere conditions */
 	if (size == 0)
 		return (NULL);
