@@ -1,11 +1,12 @@
 #include <stdlib.h>
 #include "main.h"
-/*
-* _strdup - returns a pointer to a newly allocated space in memory
-* @str: pointer chaine
+/**
+* _strdup - description courte de ce que fait la fonction
+* @str: description du paramètre
 *
-* Return: pointer to duplicate a string
+* Return: description de ce que la fonction retourne
 */
+
 char *_strdup(char *str)
 {
 	int leng;
