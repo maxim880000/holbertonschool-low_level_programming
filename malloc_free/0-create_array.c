@@ -27,7 +27,7 @@ char *create_array(unsigned int size, char c)
 	/* boucle for pour remplir le tableau avce c */
 	for (i = 0; i < size; i++)
 		array[i] = c;
-	
+
 	/* rendre la boite */
 	return (array);
 }
