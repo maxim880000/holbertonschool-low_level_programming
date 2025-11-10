@@ -17,7 +17,7 @@ char *_strdup(char *str)
 		return (NULL);
 
 	/* calculer la longueur */
-	for (leng = 0; str[leng] != '\0'; leng++);
+	for (leng = 0; str[leng] != '\0'; leng++)
 
 	/* alloue de la memoire +1 car malloc prend pas \0 */
 	sstr = malloc((leng + 1) * sizeof(char));
