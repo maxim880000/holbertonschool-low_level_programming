@@ -10,26 +10,24 @@
 
 /* creation de tableau dynamique */
 char *create_array(unsigned int size, char c)
-	
-	char *array;
-	int i;
 {
+	char *array;
+	insigned int i;
+
 	/* verifie la premiere conditions */
 	if (size == 0)
 		return (NULL);
 
 	/* comment utiliser malloc (alloue de la memoire) */
 	array = malloc(size * sizeof(char));
-
 	/* verification si malloc a marcher */
 	if (array == NULL)
 		return (NULL);
 
 	/* boucle for pour remplir le tableau avce c */
 	for (i = 0; i < size; i++)
-	{
 		array[i] = c;
-	}
+	
 	/* rendre la boite */
 	return (array);
 }
