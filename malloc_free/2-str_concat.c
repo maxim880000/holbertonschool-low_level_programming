@@ -23,30 +23,32 @@ if (s2 == NULL)
 {
 	s2 = "";
 }
-	/* boucle vide pour compter les char */
+	/* boucle vide pour compter les char s1 */
 	for (leng1 = 0; s1[leng1] != '\0'; leng1++)
 	;
 
 	for (leng2 = 0; s2[leng2] != '\0'; leng2++)
 	;
+	/* allouer la mémoire pour la nouvelle chaîne */
 	result = malloc((leng1 + leng2 + 1) * sizeof(char));
-	if (result == NULL)
+	if (result == NULL) /* vérifier si malloc échour */
 		return (NULL);
 
+	/* copier les caractères de s1 dans result */
 	i = 0;
 	while (s1[i])
 	{
 		result[i] = s1[i];
 		i++;
 	}
-	/* */
+	/* copier les caractères de s2 à la suite de s1 */
 	i = 0;
 	while (s2[i])
 	{
 		result[leng1 + i] = s2[i];
 		i++;
 	}
-
+	/* ajouter le caractère nul pour terminer la chaîne */
 	result[leng1 + leng2] = '\0';
 		return (result);
 }
