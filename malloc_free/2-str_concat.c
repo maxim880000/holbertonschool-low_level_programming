@@ -27,7 +27,7 @@ if (s2 == NULL)
 	/* boucle vide pour compter les char */
 	for (leng1 = 0; s1[leng1] != '\0'; leng1++)
 	;
-	
+
 	for (leng2 = 0; s2[leng2] != '\0'; leng2++)
 	;
 	result = malloc((leng1 + leng2 + 1) * sizeof(char));
@@ -36,14 +36,17 @@ if (s2 == NULL)
 
 	i = 0;
 	while (s1[i])
-	result[i] = s1[i];
+	{
+		result[i] = s1[i];
 		i++;
-
+	}
 	/* */
 	i = 0;
 	while (s2[i])
-	result[leng1 + i] = s2[i];
+	{
+		result[leng1 + i] = s2[i];
 		i++;
+	}
 
 	result[leng1 + leng2] = '\0';
 		return (result);
