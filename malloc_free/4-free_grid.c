@@ -23,6 +23,4 @@ void free_grid(int **grid, int height)
 	}
 	/* libère le tableau principal */
 	free(grid);
-
-	return (0);
 }
