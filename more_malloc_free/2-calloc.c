@@ -12,12 +12,14 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	char *ptr;
 	unsigned int i;
 	unsigned int result;
-
+	/* vérifier paramètres */
 	if (nmemb == 0 || size == 0)
 		return (NULL);
 
+	/* calcul taille totale */
 	result = nmemb * size;
 
+	/* alouer de la memoire*/
 	ptr = malloc(result);
 	if (ptr == NULL)
 		return (NULL);
