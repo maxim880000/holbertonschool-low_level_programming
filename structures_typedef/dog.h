@@ -3,9 +3,9 @@
 
 struct dog
 {
-	name, type = *char
-	age, type = float
-	owner, type = *char
+	name, = *char
+	age, = float
+	owner, = *char
 };
 
 #endif
