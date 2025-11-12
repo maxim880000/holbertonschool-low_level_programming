@@ -9,20 +9,20 @@
 */
 int *array_range(int min, int max)
 {
-	unsigned int *ptr;
+	int *ptr;
 	unsigned int size;
 	int i;
 
-	if (min > max)
+	if (min > max) /* verifer les valeurs */
 		return (NULL);
 
-	size = max - min + 1;
+	size = max - min + 1; /* definir size */
 
-	ptr = malloc(size);
-		if (ptr == NULL)
+	ptr = malloc(size); /* allouer de la memoire */
+		if (ptr == NULL) /* check malloc */
 			return (NULL);
 
-	for (i = 0; i <= size; i++)
+	for (i = 0; i < size; i++)
 	ptr[i] = min + i;
 
 	return (*ptr);
