@@ -1,1 +1,1 @@
-structure C s
+s
