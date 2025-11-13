@@ -689,6 +689,6 @@ Projet réalisé pour **Holberton School** - Apprentissage de la programmation e
 
 <div align="center">
 
-**Bon codage ! 🚀**
+**Bon codage, ! 🚀**
 
 </div>
