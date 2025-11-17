@@ -11,24 +11,28 @@
  */
 void print_to_98(int n)
 {
-	if (n <= 98)
-	{
-		for (; n <= 98; n++)
-		{
-			if (n == 98)
-				printf("%d\n", n);
-			else
-				printf("%d, ", n);
-		}
-	}
-	else
-	{
-		for (; n >= 98; n--)
-		{
-			if (n == 98)
-				printf("%d\n", n);
-			else
-				printf("%d, ", n);
-		}
-	}
+    /* If n is less than or equal to 98, count up */
+    if (n <= 98)
+    {
+        for (; n <= 98; n++)
+        {
+            /* When reaching 98, print final number with newline */
+            if (n == 98)
+                printf("%d\n", n);
+            else
+                /* Print number followed by a comma and space */
+                printf("%d, ", n);
+        }
+    }
+    else
+    {
+        /* If n is greater than 98, count down */
+        for (; n >= 98; n--)
+        {
+            if (n == 98)
+                printf("%d\n", n);
+            else
+                printf("%d, ", n);
+        }
+    }
 }
