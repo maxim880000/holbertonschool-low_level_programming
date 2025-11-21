@@ -12,9 +12,10 @@ void print_all(const char * const format, ...)
 	va_list boite;
 	int i = 0; /* pour parcourir format */
 	int check = 1; /* pour ne pas avoir de virgule au depart */
-	char *stock; /* pour recuperer les strings */
+	char *stock;   /* pour recuperer les strings */
 
 	va_start(boite, format); /* nom et dernier agrmt (open boite) */
+
 	if (format == NULL)
 		{
 			printf("\n"); /* rien à afficher si pas de format */

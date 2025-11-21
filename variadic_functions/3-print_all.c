@@ -1,54 +1,67 @@
 #include "variadic_functions.h"
 #include <stdarg.h>
 #include <stdio.h>
+
 /**
- * print_all - printf everything
- * @format: char pointer constant(list type argmt)
- *
- * Return: nothing
+ * print_all - affiche tous les arguments selon le format
+ * @format: types des arguments (c = char, i = int, f = float, s = string)
  */
 void print_all(const char * const format, ...)
 {
-	va_list boite;
-	int i = 0; /* pour parcourir format */
-	int check = 1; /* pour ne pas avoir de virgule au depart */
-	char *stock;   /* pour recuperer les strings */
+	va_list boite;          /* boîte pour les arguments variadiques */
+	int i = 0;              /* position dans la chaîne format */
+	int check = 1;          /* 1 = premier élément → pas de virgule */
+	char *str;              /* pour récupérer les strings */
 
-	va_start(boite, format); /* nom et dernier agrmt (open boite) */
+	va_start(boite, format);    /* ouvre la boîte */
 
-	if (format == NULL)
-		{
-			printf("\n"); /* rien à afficher si pas de format */
-			va_end(boite); /* on ferme la boîte */
-			return; /* on sort direct */
-		}
-	while (format[i] != '\0') /* tant qu'on est pas a la fin du string */
+	if (format == NULL)         /* si format est NULL */
 	{
-		if (check == 0) /* affiche au moin un char avant la , */
-			printf(", "); /* apres on met la virgule puis un espace */
-		check = 0; /* mtn c plus le premier donc */
-		switch (format[i]) /* on regarde quel type d'argument on doit afficher */
+		printf("\n");           /* affiche juste un retour à la ligne */
+		va_end(boite);
+		return;
+	}
+
+	while (format[i] != '\0')   /* tant qu'il y a des caractères dans format */
+	{
+		switch (format[i])
 		{
-		/* Définit chaque possibilité */
-		/* Sans break → il continue et fait TOUS les cas suivants ! */
-		case 'c': /* caractère */
+		case 'c':               /* caractère */
+			if (check == 0)     /* si on a déjà affiché quelque chose */
+				printf(", ");
 			printf("%c", va_arg(boite, int));
+			check = 0;          /* on a affiché un truc */
 			break;
-		case 'i': /* entier */
+
+		case 'i':               /* entier */
+			if (check == 0)
+				printf(", ");
 			printf("%d", va_arg(boite, int));
+			check = 0;
 			break;
-		case 'f': /* float */
+
+		case 'f':               /* float */
+			if (check == 0)
+				printf(", ");
 			printf("%f", va_arg(boite, double));
+			check = 0;
 			break;
-		case 's': /* string */
-				stock = va_arg(boite, char *);
-				/* si la string est NULL → on affiche (nil) */
-				/* si j’ai une string, je la prends ; sinon je prends "(nil)" */
-				printf("%s", stock ? stock : "(nil)");
-				break;
+
+		case 's':               /* string */
+			if (check == 0)
+				printf(", ");
+			str = va_arg(boite, char *);
+			if (str == NULL)    /* si la string est NULL */
+				printf("(nil)");
+			if (str != NULL)    /* si la string existe */
+				printf("%s", str);
+			check = 0;
+			break;
+			/* autres caractères → ignorés automatiquement */
 		}
 		i++;
 	}
-	va_end(boite); /* on ferme la boîte */
-	printf("\n");
+
+	va_end(boite);              /* ferme la boîte */
+	printf("\n");               /* saut de ligne final */
 }
