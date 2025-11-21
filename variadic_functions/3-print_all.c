@@ -14,8 +14,8 @@ void print_all(const char * const format, ...)
 	int check = 1; /* pour ne pas avoir de virgule au depart */
 	char *stock; /* pour recuperer les strings */
 
-	va_start(boite, format) /* nom et dernier agrmt (open boite) */
-		if (format == NULL)
+	va_start(boite, format); /* nom et dernier agrmt (open boite) */
+	if (format == NULL)
 		{
 			printf("\n"); /* rien à afficher si pas de format */
 			va_end(boite); /* on ferme la boîte */
@@ -25,7 +25,7 @@ void print_all(const char * const format, ...)
 	{
 		if (check == 0) /* affiche au moin un char avant la , */
 			printf(", "); /* apres on met la virgule puis un espace */
-			check = 0; /* mtn c plus le premier donc */
+		check = 0; /* mtn c plus le premier donc */
 		switch (format[i]) /* on regarde quel type d'argument on doit afficher */
 		{
 		/* Définit chaque possibilité */
@@ -42,7 +42,8 @@ void print_all(const char * const format, ...)
 		case 's': /* string */
 				stock = va_arg(boite, char *);
 				/* si la string est NULL → on affiche (nil) */
-				printf("%s", stock ? stock : "(nil)"); 
+				/* si j’ai une string, je la prends ; sinon je prends "(nil)" */
+				printf("%s", stock ? stock : "(nil)");
 				break;
 		}
 		i++;
