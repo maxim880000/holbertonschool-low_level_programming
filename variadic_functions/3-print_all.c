@@ -41,16 +41,13 @@ void print_all(const char * const format, ...)
 			printf("%f", va_arg(boite, double));
 			break;
 		case 's': /* string */
-			stock = va_arg(boite, char *); /* on récupère la string */
-			/* si la string est NULL → on affiche (nil) */
-			if (stock == NULL)  /* si la string existe pas */
-				printf("(nil)"); /* on écrit "(nil)" */
-			if (stock != NULL)  /* si la string existe */
-				printf("%s", stock); /* on l'affiche normalement */
-			break;
+				stock = va_arg(boite, char *);
+				/* si la string est NULL → on affiche (nil) */
+				/* si j’ai une string, je la prends ; sinon je prends "(nil)" */
+				printf("%s", stock ? stock : "(nil)");
+				break;
 		}
 		i++;
-	}
 	va_end(boite); /* on ferme la boîte */
 	printf("\n");
 }
