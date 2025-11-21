@@ -12,10 +12,9 @@ void print_all(const char * const format, ...)
 	va_list boite;
 	int i = 0; /* pour parcourir format */
 	int check = 1; /* pour ne pas avoir de virgule au depart */
-	char *stock;   /* pour recuperer les strings */
+	char *stock; /* pour recuperer les strings */
 
 	va_start(boite, format); /* nom et dernier agrmt (open boite) */
-
 	if (format == NULL)
 		{
 			printf("\n"); /* rien à afficher si pas de format */
@@ -41,13 +40,11 @@ void print_all(const char * const format, ...)
 			printf("%f", va_arg(boite, double));
 			break;
 		case 's': /* string */
-			stock = va_arg(boite, char *); /* on récupère la string */
-			/* si la string est NULL → on affiche (nil) */
-			if (stock == NULL)  /* si la string existe pas */
-				printf("(nil)"); /* on écrit "(nil)" */
-			if (stock != NULL)  /* si la string existe */
-				printf("%s", stock); /* on l'affiche normalement */
-			break;
+				stock = va_arg(boite, char *);
+				/* si la string est NULL → on affiche (nil) */
+				/* si j’ai une string, je la prends ; sinon je prends "(nil)" */
+				printf("%s", stock ? stock : "(nil)");
+				break;
 		}
 		i++;
 	}
