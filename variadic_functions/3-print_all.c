@@ -48,6 +48,7 @@ void print_all(const char * const format, ...)
 				break;
 		}
 		i++;
+	}
 	va_end(boite); /* on ferme la boîte */
 	printf("\n");
 }
