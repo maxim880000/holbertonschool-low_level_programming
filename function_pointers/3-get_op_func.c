@@ -6,7 +6,7 @@
  * @s: the operator passed as argument ("+", "-", "*", "/", "%")
  *
  * Return: pointer to the function that matches the operator
- * ou NULL 
+ * ou NULL
  */
 int (*get_op_func(char *s))(int, int)
 {
