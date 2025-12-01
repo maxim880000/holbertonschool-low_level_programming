@@ -2,8 +2,8 @@
 #include "lists.h"
 /**
  * print_list - prints all the elements of a list_t list.
- * @list_t: 
- * 
+ * @list_t: la liste
+ *
  * Return: the number of nodes
  */
 size_t print_list(const list_t *h)
@@ -15,18 +15,16 @@ size_t print_list(const list_t *h)
 	while (ptr != NULL)
 	{
 		/* si la string du noeud est vide */
-		if (ptr-> str == NULL)
-			printf ("[0] (nil)\n");
+		if (ptr->str == NULL)
+			printf("[0] (nil)\n");
 
-		else 
+		else
 			/* affiche la longeur des string et la string */
-			printf ("[%u] %s\n", ptr->len, ptr->str );
-		
+			printf("[%u] %s\n", ptr->len, ptr->str);
+
 		count++; /* ajoute +1 a chque noead vu */
 		/* ptr avance au nœud suivant */
 		ptr = ptr->next;
-		
-
 	}
 	return (count);
 }
