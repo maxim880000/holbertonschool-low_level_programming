@@ -11,13 +11,13 @@ void _puts_recursion(char *s)
 {
 	if (s[0] == '\0')
 	{
-		_putchar('\n');
-		return;
+		_putchar('\n');  // Affiche un saut de ligne
+		return;  // Arrête la récursion
 	}
 
 	if (s[0] != '\0')
 	{
-		_putchar(s[0]);
-		_puts_recursion(s + 1);
+		_putchar(s[0]); // Affiche le caractère courant
+		_puts_recursion(s + 1); // Appelle la fonction avec le caractère suivant
 	}
 }

@@ -9,9 +9,9 @@
 
 void _print_rev_recursion(char *s)
 {
-	if (s[0] == '\0')
-		return;
+	if (s[0] == '\0')              // Cas de base : fin de la chaîne
+		return;                    // On arrête la récursion
 
-	_print_rev_recursion(s + 1);
-	_putchar(s[0]);
+	_print_rev_recursion(s + 1);   // Appel récursif sur le reste de la chaîne
+	_putchar(s[0]);                // Affiche le caractère courant (après retour)
 }

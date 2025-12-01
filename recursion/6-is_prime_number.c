@@ -8,16 +8,15 @@
 * Return: retunr 0
 */
 
-int is_prime_number(int n, int i)
+int is_prime_number(int n)
 {
-	if (n < 2)
-		return (0);
+    if (n < 2)                  // 0, 1 et négatifs → pas premiers
+        return 0;
 
-	if (i * i > n)
-		return (1);
-
-	if (n % i == 0)
-		return (0);
-
-	return (is_prime_number(n, i + 1));
+    for (int i = 2; i * i <= n; i++)
+    {
+        if (n % i == 0)         // si un nombre divise n → pas premier
+            return 0;
+    }
+    return 1;                   // sinon → c'est premier !
 }
