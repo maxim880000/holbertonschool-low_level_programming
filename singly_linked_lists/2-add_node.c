@@ -13,7 +13,7 @@
 list_t *add_node(list_t **head, const char *str)
 {
 	list_t *ptr; /* nouveau noeud */
-
+	unsigned i; /* pour la longueur */
 	/* allouer de la memoire pour le new noeud */
 	/* si sa echoue on sort */
 	ptr = malloc(sizeof(list_t));
@@ -23,8 +23,11 @@ list_t *add_node(list_t **head, const char *str)
 	/* je fais une copie du string pour mon nœud */
 	ptr->str = strdup(str);
 
-	/* count the nb of letter of the string and put it in ptr->len */
-	ptr->len = strlen(str);
+	/* je compte le nombre de lettres à la main */
+    i = 0;
+    while (str[i] != '\0')     /* tant que je ne suis pas à la fin de la string */
+        i++;
+    ptr->len = i;              /* je mets le total dans len */
 
 	/* le nouveau noeud pointe-> l'ancien 1ER noeud */
 	ptr->next = *head;
