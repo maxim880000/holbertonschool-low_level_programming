@@ -4,13 +4,13 @@
 /**
  * add_dnodeint_end -aAdds a new node at the end of a dlistint_t list.
  * @head: bouble pointeur vers les head
- * @n: entier pour new code 
+ * @n: entier pour new code
  *
- * Return: The address of the new element else NULL 
+ * Return: The address of the new element else NULL
  */
 
- dlistint_t *add_dnodeint_end(dlistint_t **head, const int n);
- {
+dlistint_t *add_dnodeint_end(dlistint_t **head, const int n)
+{
 	dlistint_t *new_node;
 	dlistint_t *temp; /* ptr pour parcourir la liste */
 
@@ -39,7 +39,7 @@
 	/* quand on s'arrete temp = dernier noeud (next est null)*/
 	temp->next = new_node; /* l'ancien dernier devient new_node */
 
-	new_node->prev = temp; /* nouveau nœud de pointer vers l'ancien dernier (temp) */
+	new_node->prev = temp; /* new_node pointe vers l'ancien dernier (temp) */
 
 	return (new_node); /* return l'adresse */
- }
+}
