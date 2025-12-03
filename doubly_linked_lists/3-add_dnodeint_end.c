@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "lists.h"
+#include <stdlib.h>
 
 /**
  * add_dnodeint_end -aAdds a new node at the end of a dlistint_t list.
