@@ -13,10 +13,10 @@
 size_t print_dlistint(const dlistint_t *h)
 {
 	size_t count = 0;   /* compteur de nœuds */
-	dlistint_t *current = h; /* pointeur qui parcourt la liste */
+	const dlistint_t *current = h; /* pointeur qui parcourt la liste */
 
 	if (h == NULL)
-		return (NULL);
+		return (0);
 
 	while (current != NULL)
 	{
