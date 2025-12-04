@@ -36,6 +36,12 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 		current = current->next;
 		count++;
 	}
+		/* Index trop grand. */
+	if (current == NULL)
+		return (-1);
+	
+	/* A. Mise à jour du nœud PRÉCÉDENT : Le nœud avant pointe vers le nœud après. */
+	current->prev->next = current->next;
 
 	return (1);
 }
