@@ -40,8 +40,13 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	if (current == NULL)
 		return (-1);
 	
-	/* A. Mise à jour du nœud PRÉCÉDENT : Le nœud avant pointe vers le nœud après. */
+	/* nœud PRÉCÉDENT Le nœud avant pointe vers le nœud après. */
 	current->prev->next = current->next;
 
+	/* nœud suivantt si le nœud supprimé n'est pas la fin */
+	if (current->next != NULL)
+
+	/* C. Finalisation : Libération de la mémoire. */
+	free(current);
 	return (1);
 }
