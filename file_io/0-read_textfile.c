@@ -12,16 +12,13 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	int desc; /* file descriptor */
 	ssize_t rd, wr; /* bytes read et written */
 	char *stack; /* stocker les données */
-
 	/* Vérifier si filename est NULL */
 	if (filename == NULL)
 		return (0);
-
 	/* Allouer la mémoire pour stocker les données */
 	stack = malloc(sizeof(char) * letters);
 	if (stack == NULL) /* check si sa echoue */
 		return (0);
-
 	/* Ouvrir le fichier en lecture seule */
 	desc = open(filename, O_RDONLY);
 	if (desc == -1)
@@ -29,7 +26,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		free(stack);
 		return (0);
 	}
-
 	/* Lire 'letters' octets depuis le fichier */
 	rd = read(desc, stack, letters);
 	if (rd == -1)
@@ -38,7 +34,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		close(desc);
 		return (0);
 	}
-
 	/* Écrire les octets lus sur la sortie standard */
 	wr = write(STDOUT_FILENO, stack, rd);
 	if (wr == -1 || wr != rd)
@@ -47,7 +42,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		close(desc);
 		return (0);
 	}
-
 	/* Libérer la mémoire et fermer le fichier */
 	free(stack);
 	close(desc);
