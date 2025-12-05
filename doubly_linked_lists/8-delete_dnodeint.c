@@ -45,8 +45,9 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 
 	/* nœud suivantt si le nœud supprimé n'est pas la fin */
 	if (current->next != NULL)
+		current->next->prev = current->prev;
 
-	/* C. Finalisation : Libération de la mémoire. */
+	/* Libération de la mémoire. */
 	free(current);
 	return (1);
 }
