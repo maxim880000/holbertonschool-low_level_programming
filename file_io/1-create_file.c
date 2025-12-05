@@ -14,45 +14,49 @@
  */
 int create_file(const char *filename, char *text_content)
 {
-	int desc;
-	int len = 0;         /* Initialise la longueur à 0 */
-	ssize_t w_bytes = 0;
+	int desc; /* Descripteur de fichier (File Descriptor). */
+	int len = 0; /* Longueur du contenu à écrire. */
+	ssize_t bytes_written = 0; /* Nombre d'octets réellement écrits. */
 
-	/* Vérification #1: filename NULL */
+	/* 1. Vérification du nom de fichier NULL */
 	if (filename == NULL)
 		return (-1);
 
-	/* Calcul de la longueur si le contenu n'est pas NULL */
+	/* 2. Calcul de la longueur si le contenu n'est pas NULL */
 	if (text_content != NULL)
 	{
-		while (text_content[len]) /* Calcul manuel de la longueur (équivalent à _strlen) */
+		while (text_content[len])
 			len++;
 	}
 
-	/* O_CREAT: Crée si n'existe pas. O_WRONLY: Écriture seule. O_TRUNC: Tronque si existe. */
-	/* 0600: rw------- (Permission requise) */
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	/* 3. Ouvrir ou créer le fichier */
+	/*
+	 * O_CREAT: Crée si inexistant. O_WRONLY: Écriture seule. O_TRUNC: Tronque si existant.
+	 * 0600: Permissions rw------- (s'applique si le fichier est créé)
+	 */
+	desc = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 
-	/* Vérification #2: Échec dse open/create */
+	/* Vérification de l'échec de open/create */
 	if (desc == -1)
 		return (-1);
 
-	/* Écriture uniquement si il y a du contenu (len > 0) */
+	/* 4. Écrire le contenu (si len > 0) */
 	if (len > 0)
 	{
-		w_bytes = write(desc, text_content, len);
+		bytes_written = write(desc, text_content, len);
 
-		/* Vérification #3: Échec de write ou écriture partielle */
-		if (w_bytes == -1 || w_bytes != len)
+		/* Vérification de l'échec d'écriture (-1) ou de l'écriture partielle (bytes_written != len) */
+		if (bytes_written == -1 || bytes_written != len)
 		{
-			close(desc); /* Tente la fermeture avant de retourner l'erreur */
+			close(desc); /* Doit fermer le descripteur ouvert même en cas d'erreur. */
 			return (-1);
 		}
 	}
 
-	/* Vérification #4: Échec de la fermeture */
+	/* 5. Fermeture du descripteur */
+	/* Retourne -1 si la fermeture échoue */
 	if (close(desc) == -1)
 		return (-1);
 
-	return (1);
+	return (1); /* Succès */
 }
