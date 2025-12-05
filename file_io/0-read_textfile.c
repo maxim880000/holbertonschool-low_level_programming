@@ -19,7 +19,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	/* Allouer la mémoire pour stocker les données */
 	stack = malloc(sizeof(char) * letters);
-	if (stack == NULL)
+	if (stack == NULL) /* check si sa echoue */
 		return (0);
 
 	/* Ouvrir le fichier en lecture seule */
