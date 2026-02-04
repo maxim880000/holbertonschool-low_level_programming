@@ -1,2 +1,5 @@
 #!/bin/bash
+
+# Compile le fichier C en code assembleur
+# -S : génère un fichier .s (assembleur) sans créer de binaire
 gcc -S "$CFILE"

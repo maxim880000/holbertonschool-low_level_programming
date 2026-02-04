@@ -1,2 +1,5 @@
 #!/bin/bash
+
+# Compile le fichier C et crée l’exécutable
+# -o cisfun : nom du programme généré
 gcc "$CFILE" -o cisfun

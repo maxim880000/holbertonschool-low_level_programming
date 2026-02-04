@@ -1,2 +1,5 @@
 #!/bin/bash
+
+# Compile le fichier C sans lier (génère un fichier objet .o)
+# -c : compile uniquement, pas d’édition de liens
 gcc -c "$CFILE"

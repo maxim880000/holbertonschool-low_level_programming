@@ -1,2 +1,6 @@
 #!/bin/bash
+
+# Compile le fichier C contenu dans la variable d’environnement CFILE
+# -E : exécute uniquement le préprocesseur
+# -o c : écrit le résultat dans le fichier "c"
 gcc -E "$CFILE" -o c

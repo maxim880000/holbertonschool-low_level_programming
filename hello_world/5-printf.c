@@ -5,9 +5,11 @@
 *
 * Return: Always 0 (Success)
 */
-
 int main(void)
 {
-printf("with proper grammar, but the outcome is a piece of art,\n");
-return (0);
+	/* Affiche la phrase avec saut de ligne à la fin */
+	printf("with proper grammar, but the outcome is a piece of art,\n");
+
+	/* Retourne 0 pour indiquer succès */
+	return (0);
 }
