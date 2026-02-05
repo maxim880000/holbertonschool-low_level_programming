@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * _abs - Computes the absolute value of an integer.
- * @n: The integer to compute the absolute value of.
+ * _abs - Calcule la valeur absolue d’un entier
+ * @n: L'entier dont on veut calculer la valeur absolue.
  *
  * Return: value of n.
  */

@@ -2,31 +2,30 @@
 #include "main.h"
 
 /**
- * print_to_98 - Prints all natural numbers from n to 98
- * @n: starting number
+ * print_to_98 - Affiche tous les nombres naturels de n à 98
+ * @n: nombre de départ
  *
- * Description: This function prints all natural numbers from n
- * to 98, separated by a comma and a space, followed by a new line.
- * Numbers are printed in order, whether ascending or descending.
+ * Description: Affiche tous les nombres de n à 98, séparés par une , et un espace
+ * Les nombres sont affichés dans l'ordre croissant ou décroissant
  */
 void print_to_98(int n)
 {
-    /* If n is less than or equal to 98, count up */
+    /* Si n est inférieur ou égal à 98, on compte vers le haut */
     if (n <= 98)
     {
         for (; n <= 98; n++)
         {
-            /* When reaching 98, print final number with newline */
+            /* Si on atteint 98, on ajoute un retour à la ligne */
             if (n == 98)
                 printf("%d\n", n);
             else
-                /* Print number followed by a comma and space */
+                /* Sinon, on affiche le nombre suivi de ", " */
                 printf("%d, ", n);
         }
     }
     else
     {
-        /* If n is greater than 98, count down */
+        /* Si n est supérieur à 98, on compte vers le bas */
         for (; n >= 98; n--)
         {
             if (n == 98)

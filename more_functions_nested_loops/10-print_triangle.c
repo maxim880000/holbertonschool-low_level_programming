@@ -16,14 +16,18 @@ void print_triangle(int size)
 		return;
 	}
 
+	/* Boucle sur chaque ligne de la pyramide */
 	for (x = 1; x <= size; x++)
 	{
+		/* Affiche les espaces avant les # pour aligner à droite */
 		for (space = size - x; space > 0; space--)
 			_putchar(' ');
 
+		/* Affiche les # pour la ligne courante */
 		for (y = 0; y < x; y++)
 			_putchar('#');
 
+		/* Passe à la ligne suivante */
 		_putchar('\n');
 	}
 }
