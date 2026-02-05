@@ -1,642 +1,534 @@
-a# 🔮 C - Variadic Functions
+# 📦 Variadic Functions - Fonctions à arguments variables
 
-<div align="center">
-
-![Holberton School Banner](https://www.holbertonschool.com/holberton-logo.png)
-
-### Master the Art of Variable Arguments in C
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Language](https://img.shields.io/badge/language-C-blue.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
-[![GitHub Issues](https://img.shields.io/github/issues/maxim880000/holbertonschool-low_level_programming.svg)](https://github.com/maxim880000/holbertonschool-low_level_programming/issues)
-
-**Créer tes propres `printf`, `scanf`, et bien d'autres fonctions variadiques comme un pro ! 🚀**
-
-[📚 Documentation](#-table-des-matières) • [💻 Projets](#-projets-de-la-semaine) • [🎯 Learning Objectives](#-objectifs-apprentissage) • [📖 Ressources](#-ressources)
-
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c" alt="C"/>
+  <img src="https://img.shields.io/badge/Level-Avancé-red?style=for-the-badge" alt="Avancé"/>
+</p>
 
 ---
 
-## 📋 Table des matières
+## 📖 Table des matières
 
-1. [À propos](#-à-propos)
-2. [Objectifs d'apprentissage](#-objectifs-apprentissage)
-3. [Concept fondamental](#-concept-fondamental)
-4. [Les 4 macros magiques](#-les-4-macros-magiques)
-5. [Projets de la semaine](#-projets-de-la-semaine)
-6. [Compilation et tests](#-compilation-et-tests)
-7. [Pièges courants](#-pièges-courants)
-8. [Ressources](#-ressources)
-
----
-
-## 🎯 À propos
-
-Ce projet te permet de **maîtriser les fonctions variadiques** - ces fonctions mystérieuses qui acceptent un nombre **indéterminé d'arguments**, tout comme `printf()` et `scanf()`.
-
-**Tu utilises déjà des fonctions variadiques chaque jour :**
-
-```c
-printf("Nombre: %d, String: %s\n", 42, "Hello");  // 2 arguments variables
-printf("Un seul: %d\n", 10);                       // 1 argument variable
-printf("Trois: %d %d %d\n", 1, 2, 3);             // 3 arguments variables
-```
-
-**Après ce projet, tu pourras créer les TIENNES ! 💪**
+1. [Description](#-description)
+2. [Objectifs pédagogiques](#-objectifs-pédagogiques)
+3. [Comprendre les fonctions variadiques](#-comprendre-les-fonctions-variadiques)
+4. [Les macros de stdarg.h](#-les-macros-de-stdargh)
+5. [Fichiers du projet](#-fichiers-du-projet)
+6. [Détail des fichiers](#-détail-des-fichiers)
+7. [Cas d'utilisation avancés](#-cas-dutilisation-avancés)
+8. [Compilation et exécution](#-compilation-et-exécution)
+9. [Ressources](#-ressources)
 
 ---
 
-## 🎓 Objectifs d'apprentissage
+## 📝 Description
 
-À la fin de ce projet, tu seras capable de :
+Ce projet explore les **fonctions variadiques** (variadic functions) en C - des fonctions qui acceptent un nombre **variable** d'arguments. C'est le mécanisme qui permet à `printf` d'accepter 1, 5, ou 100 arguments !
 
-✅ **Comprendre** le mécanisme des fonctions variadiques  
-✅ **Déclarer** une fonction avec un nombre variable d'arguments  
-✅ **Utiliser** les macros de `<stdarg.h>` correctement  
-✅ **Implémenter** tes propres fonctions génériques (`print_numbers`, `print_strings`, `print_all`)  
-✅ **Gérer** les erreurs et les cas limites (NULL, types mixtes)  
-✅ **Maîtriser** la promotion de types en C  
-✅ **Éviter** les pièges courants et comportements indéfinis  
+Les fonctions variadiques utilisent la bibliothèque `<stdarg.h>` et un ensemble de macros pour accéder aux arguments.
 
 ---
 
-## 💡 Concept fondamental
+## 🎯 Objectifs pédagogiques
 
-### Qu'est-ce qu'une fonction variadique ?
+À la fin de ce projet, vous serez capable de :
 
-Une fonction qui prend un **nombre indéterminé d'arguments**, défini au runtime et non à la compilation.
-
-**Syntaxe générale :**
-
-```c
-type fonction(paramètres_fixes, ...);
-```
-
-Les trois points `...` signifient : *"et potentiellement d'autres arguments"*.
-
-### Règles absolues
-
-| ✅ Obligatoire | ❌ Interdit |
-|---|---|
-| Au moins **1 paramètre fixe** avant les `...` | Les `...` n'importe où sauf la fin |
-| Connaître le **type** de chaque argument | Oublier `va_end()` |
-| Avoir un **moyen** de savoir combien d'args | Utiliser `va_arg()` sans `va_start()` |
-| Appeler `va_end()` avant de quitter | Mélanger les types sans vérifier |
+- ✅ Comprendre la syntaxe **`...`** (ellipsis)
+- ✅ Utiliser **`va_list`**, **`va_start`**, **`va_arg`**, **`va_end`**
+- ✅ Créer des fonctions avec un nombre **variable** d'arguments
+- ✅ Implémenter des fonctions type **printf**
+- ✅ Gérer différents **types** d'arguments variadiques
+- ✅ Comprendre le **const** dans les prototypes
 
 ---
 
-## 🔧 Les 4 macros magiques
+## 🧠 Comprendre les fonctions variadiques
 
-Pour utiliser les fonctions variadiques, tu **DOIS** inclure :
+### Syntaxe de base
 
 ```c
 #include <stdarg.h>
-```
 
-### 1️⃣ `va_list` - La boîte des arguments
-
-```c
-va_list ap;  // "ap" = argument pointer
-```
-
-**C'est quoi ?** Un type spécial qui représente la **liste des arguments variables**.
-
-**Pense à ça comme une boîte :** Tu vas l'ouvrir et récupérer les arguments un par un.
-
----
-
-### 2️⃣ `va_start()` - Ouvrir la boîte
-
-```c
-va_start(ap, last_fixed_param);
-```
-
-**À quoi ça sert ?** Initialise `ap` pour qu'il pointe sur le **premier argument variable**.
-
-**Exemple :**
-
-```c
-void my_function(unsigned int n, ...)
+/* Le ... (ellipsis) indique "n'importe quel nombre d'arguments" */
+int my_function(int fixed_arg, ...)
 {
-    va_list ap;
-    va_start(ap, n);  // n = dernier paramètre fixe
-    // Maintenant ap pointe sur le premier argument variable
+    va_list args;           /* Variable pour parcourir les arguments */
+    va_start(args, fixed_arg);  /* Initialiser après le dernier arg fixe */
+    
+    /* Récupérer les arguments un par un */
+    int val = va_arg(args, int);
+    
+    va_end(args);           /* Nettoyer */
+    return val;
 }
 ```
 
-**⚠️ Règle d'or :** `va_start` DOIT être appelé avant `va_arg`.
+### Pourquoi un argument fixe ?
 
----
-
-### 3️⃣ `va_arg()` - Récupérer un argument
-
-```c
-type valeur = va_arg(ap, type);
-```
-
-**À quoi ça sert ?** Récupère le **prochain argument** et avance automatiquement au suivant.
-
-**Exemple :**
+La fonction doit savoir **combien** d'arguments ont été passés. Cela peut être :
+- Un **compteur** : `sum(3, 10, 20, 30)` → 3 arguments suivent
+- Une **chaîne format** : `printf("%d %s", 42, "hello")` → le format indique les types
 
 ```c
-void print_numbers(unsigned int n, ...)
-{
-    va_list ap;
-    va_start(ap, n);
-    
-    for (unsigned int i = 0; i < n; i++)
-    {
-        int num = va_arg(ap, int);
-        printf("%d ", num);
-    }
-    
-    va_end(ap);
-}
+/* Avec compteur */
+int sum(int count, ...);
+sum(3, 10, 20, 30);  /* count=3 indique 3 arguments */
 
-print_numbers(3, 10, 20, 30);  // Affiche: 10 20 30
-```
-
-**🚨 ATTENTION CRITIQUE :** Tu DOIS connaître le type exact. Sinon : **CRASH garanti !**
-
----
-
-### 4️⃣ `va_end()` - Fermer la boîte
-
-```c
-va_end(ap);
-```
-
-**À quoi ça sert ?** Nettoie et termine l'utilisation de `ap`.
-
-**⚠️ TOUJOURS appeler avant de quitter la fonction :**
-
-```c
-void my_function(unsigned int n, ...)
-{
-    va_list ap;
-    va_start(ap, n);
-    
-    if (n == 0)
-    {
-        va_end(ap);  // Obligatoire avant le return !
-        return;
-    }
-    
-    va_end(ap);
-}
+/* Avec format (comme printf) */
+void print(const char *format, ...);
+print("%d%s", 42, "hello");  /* format indique: int, puis string */
 ```
 
 ---
 
-## 📦 Projets de la semaine
+## 🔧 Les macros de stdarg.h
 
-Voici les 4 exercices à réaliser :
+### va_list
 
-### **Exercice 0 : Beauty is variable, ugliness is constant**
-
-**Fichier :** `0-sum_them_all.c`
-
-**Prototype :**
 ```c
+va_list args;
+```
+Déclare une variable qui servira à **parcourir** les arguments. C'est comme un curseur dans une liste.
+
+### va_start
+
+```c
+va_start(args, last_fixed);
+```
+**Initialise** le curseur `args` pour commencer après `last_fixed` (le dernier argument nommé).
+
+### va_arg
+
+```c
+int n = va_arg(args, int);
+char *s = va_arg(args, char *);
+double d = va_arg(args, double);
+```
+**Récupère** l'argument suivant du type spécifié et **avance** le curseur.
+
+⚠️ **Important** : Vous devez connaître le type de chaque argument !
+
+### va_end
+
+```c
+va_end(args);
+```
+**Nettoie** la liste d'arguments. Toujours appeler avant de quitter la fonction.
+
+### va_copy (C99+)
+
+```c
+va_list copy;
+va_copy(copy, args);  /* Copie args dans copy */
+/* ... utiliser copy ... */
+va_end(copy);
+```
+
+### Visualisation du parcours
+
+```
+Appel: sum_them_all(4, 10, 20, 30, 40)
+
+Arguments en mémoire:
+┌────┬────┬────┬────┬────┐
+│ 4  │ 10 │ 20 │ 30 │ 40 │
+└────┴────┴────┴────┴────┘
+  n    ▲
+       │
+       └── va_start(args, n) positionne ici
+
+va_arg(args, int) = 10, avance →
+                       ▲
+va_arg(args, int) = 20, avance →
+                            ▲
+va_arg(args, int) = 30, avance →
+                                 ▲
+va_arg(args, int) = 40, avance →
+                                      (fin)
+```
+
+---
+
+## 📂 Fichiers du projet
+
+| Fichier | Description | Prototype |
+|---------|-------------|-----------|
+| `variadic_functions.h` | Prototypes des fonctions | - |
+| `0-sum_them_all.c` | Somme de n entiers | `int sum_them_all(const unsigned int n, ...)` |
+| `1-print_numbers.c` | Affiche n nombres avec séparateur | `void print_numbers(const char *separator, const unsigned int n, ...)` |
+| `2-print_strings.c` | Affiche n chaînes avec séparateur | `void print_strings(const char *separator, const unsigned int n, ...)` |
+| `3-print_all.c` | Affiche n'importe quoi selon un format | `void print_all(const char * const format, ...)` |
+
+---
+
+## 📄 Détail des fichiers
+
+### variadic_functions.h
+
+```c
+#ifndef VARIADIC_FUNCTIONS_H
+#define VARIADIC_FUNCTIONS_H
+
 int sum_them_all(const unsigned int n, ...);
+void print_numbers(const char *separator, const unsigned int n, ...);
+void print_strings(const char *separator, const unsigned int n, ...);
+void print_all(const char * const format, ...);
+
+#endif
 ```
 
-**Description :** Retourne la **somme de tous ses paramètres**.
+---
 
-**Comportement :**
-- Si `n == 0`, retourne `0`
-- Sinon, additionne tous les `n` arguments
+### 0-sum_them_all.c
 
-**Exemple :**
 ```c
-printf("%d\n", sum_them_all(2, 98, 1024));           // 1122
-printf("%d\n", sum_them_all(4, 98, 1024, 402, -1024)); // 500
-printf("%d\n", sum_them_all(0));                      // 0
-```
+#include "variadic_functions.h"
+#include <stdarg.h>
 
-**Logique :**
-```c
+/**
+ * sum_them_all - returns the sum of all its parameters
+ * @n: number of parameters to sum
+ *
+ * Return: sum of all parameters, or 0 if n == 0
+ */
 int sum_them_all(const unsigned int n, ...)
 {
-    va_list ap;
     unsigned int i;
+    va_list args;
     int sum = 0;
-    
+
     if (n == 0)
         return (0);
-    
-    va_start(ap, n);
+
+    va_start(args, n);
+
     for (i = 0; i < n; i++)
-        sum += va_arg(ap, int);
-    va_end(ap);
-    
+        sum += va_arg(args, int);
+
+    va_end(args);
+
     return (sum);
 }
 ```
 
-**Fonctions utilisées :** `va_list`, `va_start()`, `va_arg()`, `va_end()`
+**Exécution pas à pas** :
+```
+sum_them_all(3, 100, 200, 300)
+
+n = 3
+va_start(args, n)       // args pointe sur 100
+
+i=0: sum += va_arg(args, int)  // sum = 0 + 100 = 100
+i=1: sum += va_arg(args, int)  // sum = 100 + 200 = 300
+i=2: sum += va_arg(args, int)  // sum = 300 + 300 = 600
+
+va_end(args)
+return 600
+```
 
 ---
 
-### **Exercice 1 : To be is to be the value of a variable**
+### 1-print_numbers.c
 
-**Fichier :** `1-print_numbers.c`
-
-**Prototype :**
 ```c
-void print_numbers(const char *separator, const unsigned int n, ...);
-```
+#include "variadic_functions.h"
+#include <stdarg.h>
+#include <stdio.h>
 
-**Description :** Affiche des **nombres** séparés par `separator`, avec une nouvelle ligne à la fin.
-
-**Comportement :**
-- Si `separator` est `NULL`, n'affiche rien entre les nombres
-- Si `n == 0`, affiche juste une nouvelle ligne
-- Pas de séparateur après le dernier nombre
-
-**Exemple :**
-```c
-print_numbers(", ", 4, 0, 98, -1024, 402);  // Affiche: 0, 98, -1024, 402
-print_numbers(NULL, 3, 10, 20, 30);         // Affiche: 102030
-print_numbers(" | ", 2, 25, 100);           // Affiche: 25 | 100
-```
-
-**Logique :**
-```c
+/**
+ * print_numbers - prints numbers followed by a separator
+ * @separator: string to print between numbers
+ * @n: number of integers passed
+ */
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
-    va_list ap;
     unsigned int i;
-    
-    va_start(ap, n);
+    va_list args;
+
+    va_start(args, n);
+
     for (i = 0; i < n; i++)
     {
-        printf("%d", va_arg(ap, int));
+        printf("%d", va_arg(args, int));
         if (separator != NULL && i < n - 1)
             printf("%s", separator);
     }
+
     printf("\n");
-    va_end(ap);
+    va_end(args);
 }
 ```
 
-**Commandes clés :** `va_start()`, `va_arg()`, `va_end()`, `printf()`
+**Exemple** :
+```c
+print_numbers(", ", 4, 10, 20, 30, 40);
+/* Output: 10, 20, 30, 40 */
+
+print_numbers(" - ", 3, 1, 2, 3);
+/* Output: 1 - 2 - 3 */
+
+print_numbers(NULL, 2, 42, 99);
+/* Output: 4299 (pas de séparateur) */
+```
 
 ---
 
-### **Exercice 2 : One woman's constant is another woman's variable**
+### 2-print_strings.c
 
-**Fichier :** `2-print_strings.c`
-
-**Prototype :**
 ```c
-void print_strings(const char *separator, const unsigned int n, ...);
-```
+#include "variadic_functions.h"
+#include <stdarg.h>
+#include <stdio.h>
 
-**Description :** Affiche des **chaînes de caractères** séparées par `separator`.
-
-**Comportement :**
-- Si `separator` est `NULL`, n'affiche rien entre les strings
-- Si une string est `NULL`, affiche `(nil)` à la place
-- Pas de séparateur après la dernière string
-
-**Exemple :**
-```c
-print_strings(", ", 2, "Jay", "Django");              // Jay, Django
-print_strings(" | ", 3, "Hello", NULL, "World");     // Hello | (nil) | World
-print_strings(":", 1, "42");                          // 42
-```
-
-**Logique :**
-```c
+/**
+ * print_strings - prints strings followed by a separator
+ * @separator: string to print between strings
+ * @n: number of strings passed
+ */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
-    va_list ap;
     unsigned int i;
+    va_list args;
     char *str;
-    
-    va_start(ap, n);
+
+    va_start(args, n);
+
     for (i = 0; i < n; i++)
     {
-        str = va_arg(ap, char *);
-        if (str == NULL)
-            printf("(nil)");
-        else
-            printf("%s", str);
+        str = va_arg(args, char *);
+        printf("%s", str ? str : "(nil)");
         if (separator != NULL && i < n - 1)
             printf("%s", separator);
     }
+
     printf("\n");
-    va_end(ap);
+    va_end(args);
 }
 ```
 
-**Commandes clés :** Vérification `NULL`, `va_arg()`, chaînes de caractères
-
-**⚠️ CRITIQUE :** TOUJOURS vérifier `NULL` avant d'afficher une string. Sinon : **SEGFAULT !**
+**Gestion de NULL** :
+```c
+print_strings(", ", 3, "Hello", NULL, "World");
+/* Output: Hello, (nil), World */
+```
 
 ---
 
-### **Exercice 3 : To be is a to be the value of a variable**
+### 3-print_all.c
 
-**Fichier :** `3-print_all.c`
-
-**Prototype :**
 ```c
-void print_all(const char * const format, ...);
-```
+#include "variadic_functions.h"
+#include <stdarg.h>
+#include <stdio.h>
 
-**Description :** Affiche **n'importe quel type** selon un format donné, comme un mini `printf()`.
-
-**Format :**
-- `c` : char
-- `i` : int
-- `f` : float
-- `s` : char * (affiche `(nil)` si NULL)
-- Tout autre caractère est **ignoré**
-
-**Comportement :**
-- Les valeurs sont séparées par `, ` (virgule + espace)
-- Termine par une nouvelle ligne
-- Pas de séparateur après la dernière valeur
-
-**Exemple :**
-```c
-print_all("ceis", 'B', 3, "stSchool");
-// Affiche: B, 3, stSchool
-
-print_all("ifs", 42, 3.14, "Hello");
-// Affiche: 42, 3.140000, Hello
-
-print_all("csisciifs", 'A', "String", 98, 'B', NULL, 1024, 402, 3.14, "End");
-// Affiche: A, String, 98, B, (nil), 1024, 402, 3.140000, End
-```
-
-**Logique :**
-```c
+/**
+ * print_all - prints anything based on format string
+ * @format: format string (c=char, i=int, f=float, s=string)
+ *
+ * Any other character in format is ignored
+ */
 void print_all(const char * const format, ...)
 {
-    va_list ap;
+    va_list args;
     unsigned int i = 0;
     char *str;
-    char *sep = "";
-    
-    if (format == NULL)
-        return;
-    
-    va_start(ap, format);
-    
-    while (format[i])
+
+    va_start(args, format);
+
+    if (format)
     {
-        switch (format[i])
+        while (format[i])
         {
-            case 'c':
-                printf("%s%c", sep, va_arg(ap, int));
-                sep = ", ";
-                break;
-            case 'i':
-                printf("%s%d", sep, va_arg(ap, int));
-                sep = ", ";
-                break;
-            case 'f':
-                printf("%s%f", sep, va_arg(ap, double));
-                sep = ", ";
-                break;
-            case 's':
-                str = va_arg(ap, char *);
-                printf("%s%s", sep, (str == NULL) ? "(nil)" : str);
-                sep = ", ";
-                break;
-            default:
-                i++;
-                continue;
+            switch (format[i])
+            {
+                case 'c':
+                    printf("%c", va_arg(args, int));
+                    break;
+                case 'i':
+                    printf("%d", va_arg(args, int));
+                    break;
+                case 'f':
+                    printf("%f", va_arg(args, double));
+                    break;
+                case 's':
+                    str = va_arg(args, char *);
+                    printf("%s", str ? str : "(nil)");
+                    break;
+                default:
+                    i++;
+                    continue;  /* Skip invalid format chars */
+            }
+            if (format[i + 1] && (format[i] == 'c' || format[i] == 'i' ||
+                                  format[i] == 'f' || format[i] == 's'))
+                printf(", ");
+            i++;
         }
-        i++;
     }
-    
     printf("\n");
-    va_end(ap);
+    va_end(args);
 }
 ```
 
-**Commandes clés :** `switch`, promotion de types (`int` pour `char`, `double` pour `float`), gestion du séparateur
+**Exemple d'exécution** :
+```c
+print_all("ceis", 'H', 42, 3.14, "Hello");
+/* Output: H, 42, 3.140000, Hello */
 
-**🔴 Points ULTRA importants :**
+print_all("si", "Age:", 25);
+/* Output: Age:, 25 */
 
-| ⚠️ Type | ❌ FAUX | ✅ CORRECT |
-|---|---|---|
-| char | `va_arg(ap, char)` | `va_arg(ap, int)` |
-| float | `va_arg(ap, float)` | `va_arg(ap, double)` |
+print_all("sss", "One", NULL, "Three");
+/* Output: One, (nil), Three */
+```
+
+**Visualisation du switch** :
+```
+format = "cis"
+args = ['B', 42, "test"]
+
+i=0: format[0]='c' → case 'c' → printf("%c", 'B') → "B"
+     format[1] existe → printf(", ")
+i=1: format[1]='i' → case 'i' → printf("%d", 42) → "42"
+     format[2] existe → printf(", ")
+i=2: format[2]='s' → case 's' → printf("%s", "test") → "test"
+     format[3] = '\0' → pas de virgule
+
+printf("\n")
+Output final: "B, 42, test\n"
+```
 
 ---
 
-## 🔨 Compilation et tests
+## 🔬 Cas d'utilisation avancés
 
-### Compilation simple
+### Mini-printf
 
-```bash
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o variadic_test
+```c
+void my_printf(const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    while (*format)
+    {
+        if (*format == '%')
+        {
+            format++;
+            switch (*format)
+            {
+                case 'd':
+                    printf("%d", va_arg(args, int));
+                    break;
+                case 's':
+                    printf("%s", va_arg(args, char *));
+                    break;
+                case 'c':
+                    printf("%c", va_arg(args, int));
+                    break;
+                case '%':
+                    putchar('%');
+                    break;
+            }
+        }
+        else
+            putchar(*format);
+        format++;
+    }
+    va_end(args);
+}
+
+my_printf("Hello %s, you are %d years old!\n", "Alice", 25);
+/* Output: Hello Alice, you are 25 years old! */
 ```
 
-### Avec tous les flags recommandés
+### Fonction de logging
 
-```bash
-gcc -Wall -Werror -Wextra -pedantic -std=c99 -D_GNU_SOURCE *.c -o variadic_test
-```
+```c
+void log_message(const char *level, const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
 
-### Exécution
+    printf("[%s] ", level);
+    vprintf(format, args);  /* vprintf utilise va_list directement */
+    printf("\n");
 
-```bash
-./variadic_test
-```
+    va_end(args);
+}
 
-### Vérifier les fuites mémoire avec Valgrind
+log_message("INFO", "User %s logged in", "john");
+/* Output: [INFO] User john logged in */
 
-```bash
-valgrind --leak-check=full --show-leak-kinds=all ./variadic_test
-```
-
-**Résultat attendu :**
-```
-All heap blocks were freed -- no leaks are possible
+log_message("ERROR", "Failed after %d attempts", 3);
+/* Output: [ERROR] Failed after 3 attempts */
 ```
 
 ---
 
 ## ⚠️ Pièges courants
 
-### ❌ Piège 1 : Oublier `va_end()`
+### 1. Type promotion
 
 ```c
-void bad_function(int n, ...)
-{
-    va_list ap;
-    va_start(ap, n);
-    // Traitement...
-    // ❌ OUBLI DE va_end(ap) !
-}
+/* char et short sont promus en int */
+char c = 'A';
+my_func(c);  /* Passé comme int */
+/* Récupérer avec: va_arg(args, int) */
+
+/* float est promu en double */
+float f = 3.14f;
+my_func(f);  /* Passé comme double */
+/* Récupérer avec: va_arg(args, double) */
 ```
 
-**Solution :**
+### 2. Mauvais type dans va_arg
+
 ```c
-void good_function(int n, ...)
-{
-    va_list ap;
-    va_start(ap, n);
-    // Traitement...
-    va_end(ap);  // ✅ TOUJOURS ajouter !
-}
+/* DANGER: Undefined behavior */
+int n = va_arg(args, double);  /* Mauvais si l'arg est int ! */
 ```
 
----
-
-### ❌ Piège 2 : Mauvais type dans `va_arg()`
+### 3. Trop ou pas assez d'arguments
 
 ```c
-char c = va_arg(ap, char);      // ❌ char promu en int !
-float f = va_arg(ap, float);    // ❌ float promu en double !
-```
-
-**Solution :**
-```c
-char c = (char)va_arg(ap, int);
-float f = (float)va_arg(ap, double);
+sum_them_all(5, 1, 2, 3);  /* n=5 mais seulement 3 args → UB */
+sum_them_all(2, 1, 2, 3, 4);  /* n=2 mais 4 args → 3 et 4 ignorés */
 ```
 
 ---
 
-### ❌ Piège 3 : Ne pas vérifier `NULL` pour les strings
-
-```c
-char *str = va_arg(ap, char *);
-printf("%s\n", str);  // ❌ Si str == NULL → SEGFAULT !
-```
-
-**Solution :**
-```c
-char *str = va_arg(ap, char *);
-if (str == NULL)
-    printf("(nil)\n");
-else
-    printf("%s\n", str);
-```
-
----
-
-### ❌ Piège 4 : Appeler `va_arg()` trop de fois
-
-```c
-void bad_function(int n, ...)
-{
-    va_list ap;
-    va_start(ap, n);
-    for (int i = 0; i < n + 5; i++)  // ❌ TROP d'appels !
-        int x = va_arg(ap, int);
-    va_end(ap);
-}
-```
-
-**Résultat :** Comportement indéfini, valeurs aléatoires, crash possible.
-
----
-
-### ❌ Piège 5 : Utiliser `va_start()` deux fois sans `va_end()`
-
-```c
-va_list ap;
-va_start(ap, n);
-// Traitement...
-va_start(ap, n);  // ❌ Sans va_end() avant !
-```
-
-**Solution :**
-```c
-va_list ap;
-va_start(ap, n);
-// Traitement...
-va_end(ap);
-va_start(ap, n);  // ✅ OK maintenant
-// Traitement...
-va_end(ap);
-```
-
----
-
-## 📚 Résumé des points clés
-
-### Les 4 étapes obligatoires
-
-1. **Déclarer** : `va_list ap;`
-2. **Initialiser** : `va_start(ap, last_param);`
-3. **Récupérer** : `va_arg(ap, type);` (répéter)
-4. **Terminer** : `va_end(ap);`
-
-### Checklist avant de commiter
-
-- ✅ Toujours avoir AU MOINS 1 paramètre fixe
-- ✅ Connaître le type exact de chaque argument
-- ✅ Appeler `va_end()` avant TOUT `return`
-- ✅ Vérifier `NULL` pour les pointeurs
-- ✅ Respecter les promotions de types
-- ✅ Tester avec valgrind
-- ✅ Compiler avec `-Wall -Werror -Wextra -pedantic`
-
----
-
-## 📖 Ressources
-
-### Documentation officielle
-
-- [stdarg.h - GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html)
-- [va_list, va_start, va_arg, va_end - cppreference](https://en.cppreference.com/w/c/variadic)
-
-### Tutoriels en ligne
-
-- [Variadic Functions in C - GeeksforGeeks](https://www.geeksforgeeks.org/variadic-functions-in-c/)
-- [Understanding Variadic Functions - Learn C](https://www.learn-c.org/en/Variadic_Functions)
-
-### Livres recommandés
-
-- **"The C Programming Language"** par Kernighan & Ritchie (K&R) - Chapitre 7.3
-- **"C: A Reference Manual"** par Harbison & Steele - Section 9.2
-
-### Man pages
+## 🔧 Compilation et exécution
 
 ```bash
-man stdarg
-man va_start
-man va_arg
-man va_end
-man va_copy  # Bonus : copier une va_list
+# Compiler
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 0-main.c 0-sum_them_all.c -o sum
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 1-main.c 1-print_numbers.c -o print_num
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 2-main.c 2-print_strings.c -o print_str
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 3-main.c 3-print_all.c -o print_all
+
+# Exécuter
+./sum
+./print_num
+./print_str
+./print_all
 ```
 
 ---
 
-## 👨‍💻 Liens GitHub
+## 📚 Ressources
 
-📂 **Tous les exercices :** [holbertonschool-low_level_programming/variadic_functions](https://github.com/maxim880000/holbertonschool-low_level_programming/tree/main/variadic_functions)
-
-- `0-sum_them_all.c` - Somme des arguments
-- `1-print_numbers.c` - Affiche les nombres
-- `2-print_strings.c` - Affiche les strings
-- `3-print_all.c` - Affiche tout type
+- [stdarg.h - cppreference](https://en.cppreference.com/w/c/variadic)
+- [Variadic Functions - GNU](https://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html)
+- [How printf works](https://www.cypress.com/file/54441/download)
 
 ---
 
-## ✍️ Auteur
+## 👨‍💻 Auteur
 
-- [@maxim880000](https://github.com/maxim880000) - Implémentation et travail initial
+Projet réalisé dans le cadre du cursus **Holberton School**.
 
 ---
 
-<div align="center">
-
-### 🚀 Maintenant, tu sais créer tes propres fonctions variadiques comme un pro !
-
-**N'oublie pas :** Comprendre les fonctions variadiques, c'est avoir une clé magique pour créer des fonctions ultra-flexibles et génériques. 🔑✨
-
-**Happy Coding ! 💻**
-
-</div>
+<p align="center">
+  <i>« Les fonctions variadiques rendent le C plus flexible que jamais. »</i>
+</p>
