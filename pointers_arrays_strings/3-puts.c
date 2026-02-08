@@ -1,10 +1,12 @@
 #include "main.h"
 
+/* Affiche une chaîne de caractères suivie d’un retour à la ligne */
+
 /**
- * _puts - Affiche une chaîne de caractères, suivie d'une nouvelle ligne.
- * @str: Le pointeur (la "carte au trésor") vers la chaîne à afficher.
+ * _puts - affiche une chaîne de caractères
+ * @str: pointeur vers la chaîne à afficher
  *
- * trouve le "drapeau rouge" de fin de chaîne ('\0').
+ * Parcourt la chaîne jusqu'au caractère de fin '\0'
  */
 void _puts(char *str)
 {
@@ -12,11 +14,14 @@ void _puts(char *str)
 
 	i = 0;
 
+	/* Parcourt chaque caractère de la chaîne */
 	while (str[i] != '\0')
 	{
+		/* Affiche le caractère courant */
 		_putchar(str[i]);
 		i++;
 	}
 
+	/* Ajoute un retour à la ligne à la fin */
 	_putchar('\n');
 }

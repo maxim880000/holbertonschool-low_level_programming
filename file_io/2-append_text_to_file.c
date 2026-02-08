@@ -5,6 +5,12 @@
  * @filename: Nom du fichier
  * @text_content: Texte à ajouter
  *
+ * Points clés :
+ * - Ouvre le fichier en mode ajout (O_APPEND).
+ * - Vérifie l'existence du fichier si text_content est NULL.
+ * - Écrit le texte fourni à la fin.
+ * - Retourne 1 si succès, -1 si erreur (open/write).
+ *
  * Return: 1 si succès, -1 si échec
  */
 int append_text_to_file(const char *filename, char *text_content)
@@ -13,14 +19,14 @@ int append_text_to_file(const char *filename, char *text_content)
 	int len = 0;   /* Longueur du texte */
 	ssize_t bytes; /* Octets écrits */
 
-	/* Si pas de nom de fichier */
+	/* Vérifie le nom du fichier */
 	if (filename == NULL)
 		return (-1);
 
-	/* Si pas de texte à écrire */
+	/* Vérifie si text_content est NULL */
 	if (text_content == NULL)
 	{
-		/* Vérifie juste que le fichier existe */
+		/* Juste vérifier que le fichier existe et est accessible en écriture */
 		desc = open(filename, O_WRONLY | O_APPEND);
 		if (desc == -1)
 			return (-1);
@@ -28,24 +34,24 @@ int append_text_to_file(const char *filename, char *text_content)
 		return (1);
 	}
 
-	/* Ouvre le fichier en mode ajout */
+	/* Ouvre le fichier en écriture, mode ajout */
 	desc = open(filename, O_WRONLY | O_APPEND);
 	if (desc == -1)
 		return (-1);
 
-	/* Calcule la longueur du texte */
+	/* Calculer la longueur du texte à écrire */
 	while (text_content[len])
 		len++;
 
-	/* Écrit le texte dans le fichier */
+	/* Écrire le texte à la fin du fichier */
 	bytes = write(desc, text_content, len);
 
-	/* Ferme le fichier */
+	/* Fermer le fichier */
 	close(desc);
 
-	/* Vérifie si l'écriture a réussi */
+	/* Vérifier que l'écriture a réussi */
 	if (bytes == -1)
 		return (-1);
 
-	return (1);
+	return (1); /* Succès */
 }

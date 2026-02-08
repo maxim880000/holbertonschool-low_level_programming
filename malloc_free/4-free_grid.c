@@ -1,26 +1,27 @@
 #include "main.h"
 #include <stdlib.h>
-/**
-* free_grid - frees a 2 dimensional grid previously
-* @grid: double pointeur
-* @height: hauteur du tableau (nb de lignes)
-*
-* Return: si null quitte la fonction
-*/
 
+/* Libère un tableau 2D créé dynamiquement par alloc_grid */
+
+/**
+ * free_grid - libère la mémoire d'un tableau 2D
+ * @grid: double pointeur vers le tableau
+ * @height: hauteur du tableau (nombre de lignes)
+ *
+ * Return: rien
+ */
 void free_grid(int **grid, int height)
 {
 	int i;
 
-	/* sort de la boucle si NULL */
+	/* Si le tableau est NULL, on ne fait rien */
 	if (grid == NULL)
 		return;
 
+	/* Libère chaque ligne du tableau */
 	for (i = 0; i < height; i++)
-	{
-		/* libère la mémoire ligne i */
 		free(grid[i]);
-	}
-	/* libère le tableau principal */
+
+	/* Libère le tableau principal */
 	free(grid);
 }

@@ -1,33 +1,36 @@
 #include <stdlib.h>
 #include "main.h"
-/**
-* create_array - creates an array of chars initializes it with a specific char.
-* @size: unsigned integer
-* @c: char
-*
-* Return: NULL if size = 0, Returns a pointer to the array, or NULL if it fails
-*/
 
-/* creation de tableau dynamique */
+/* Crée un tableau dynamique de caractères et l’initialise avec un caractère donné */
+
+/**
+ * create_array - crée un tableau de taille `size` et le remplit avec `c`
+ * @size: taille du tableau
+ * @c: caractère pour remplir le tableau
+ *
+ * Return: NULL si size = 0 ou si l’allocation échoue,
+ *         sinon retourne un pointeur vers le tableau
+ */
 char *create_array(unsigned int size, char c)
 {
 	char *array;
 	unsigned int i;
 
-	/* verifie la premiere conditions */
+	/* Taille nulle → retourne NULL */
 	if (size == 0)
 		return (NULL);
 
-	/* comment utiliser malloc (alloue de la memoire) */
+	/* Alloue de la mémoire pour le tableau */
 	array = malloc(size * sizeof(char));
-	/* verification si malloc a marcher */
+
+	/* Vérifie si malloc a échoué */
 	if (array == NULL)
 		return (NULL);
 
-	/* boucle for pour remplir le tableau avce c */
+	/* Remplit le tableau avec le caractère c */
 	for (i = 0; i < size; i++)
 		array[i] = c;
 
-	/* rendre la boite */
+	/* Retourne le pointeur vers le tableau */
 	return (array);
 }

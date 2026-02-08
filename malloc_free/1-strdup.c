@@ -1,35 +1,38 @@
 #include <stdlib.h>
 #include "main.h"
-/**
-* _strdup - description courte de ce que fait la fonction
-* @str: description du paramètre
-*
-* Return: description de ce que la fonction retourne
-*/
 
+/* Duplique une chaîne de caractères en allouant de la mémoire dynamique */
+
+/**
+ * _strdup - crée une copie d'une chaîne de caractères
+ * @str: chaîne à copier
+ *
+ * Return: pointeur vers la nouvelle chaîne, ou NULL si échec/allocation
+ */
 char *_strdup(char *str)
 {
 	int leng;
 	char *sstr;
 	int i;
 
-	/* conditions si la chaine est null pour pas avoir d'erreur */
+	/* Si la chaîne d’entrée est NULL, retourne NULL */
 	if (str == 0)
 		return (NULL);
 
-	/* calculer la longueur */
+	/* Calculer la longueur de la chaîne */
 	for (leng = 0; str[leng] != '\0'; leng++)
 		;
 
-	/* alloue de la memoire +1 car malloc prend pas \0 */
+	/* Allouer de la mémoire pour la copie (+1 pour le '\0') */
 	sstr = malloc((leng + 1) * sizeof(char));
 	if (sstr == NULL)
 		return (NULL);
 
-	/* transferer les chaine de char avec i*/
+	/* Copier chaque caractère dans la nouvelle chaîne */
 	for (i = 0; i < leng; i++)
 		sstr[i] = str[i];
 
+	/* Ajouter le caractère de fin de chaîne */
 	sstr[leng] = '\0';
 
 	return (sstr);

@@ -1,20 +1,24 @@
 #include <stdio.h>
-/**
- * main - print all arguments it receives.
- * @argc: integer
- * @argv: pointer
- *
- * Return: return 0
- */
 
+/* Affiche tous les arguments passés au programme, un par ligne */
+
+/**
+ * main - affiche tous les arguments du programme
+ * @argc: nombre d’arguments (inclut le nom du programme)
+ * @argv: tableau des arguments
+ *
+ * Return: 0
+ */
 int main(int argc, char **argv)
 {
 	int i = 0;
-	/*  continue tant que i < argc */
+
+	/* Parcourt chaque argument du tableau argv */
 	for (i = 0; i < argc; i++)
 	{
-		/* print chaque argument sur une ligne */
+		/* Affiche l’argument courant suivi d’un saut de ligne */
 		printf("%s\n", argv[i]);
 	}
-		return (0);
+
+	return (0);
 }

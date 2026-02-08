@@ -1,21 +1,25 @@
 #include "main.h"
 #include <stdio.h>
-/**
-* _pow_recursion - returns the value of x raised to the power of y.
-* @y: parametres
-* @x: parametres.
-*
-* Return: (x * _pow_recursion(x, y - 1));
-*/
 
+/* Calcule x élevé à la puissance y en utilisant la récursion */
+
+/**
+ * _pow_recursion - retourne x^y
+ * @x: base
+ * @y: exposant
+ *
+ * Return: résultat de x^y, -1 si y < 0
+ */
 int _pow_recursion(int x, int y)
 {
-    if (y < 0)          // puissance négative → pas possible ici
+    /* Cas d’erreur : exposant négatif non géré */
+    if (y < 0)
         return (-1);
 
-    if (y == 0)         // n'importe quoi à la puissance 0 = 1
+    /* Cas de base : n'importe quelle base à la puissance 0 = 1 */
+    if (y == 0)
         return (1);
 
-    // on rappelle la fonction avec y-1
+    /* Appel récursif : x^y = x * x^(y-1) */
     return x * _pow_recursion(x, y - 1);
 }

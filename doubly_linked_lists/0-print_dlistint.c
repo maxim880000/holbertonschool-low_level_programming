@@ -2,27 +2,30 @@
 #include <string.h>
 #include <stdio.h>
 #include "lists.h"
-#include <stdio.h>
-/**
- * print_dlistint - prints all the elements of a dlistint_t list.
- * @h: Pointer to the head of the doubly linked list.
- *
- * Return:The number of nodes in the list.
- */
 
+/**
+ * print_dlistint - affiche tous les éléments d'une liste doublement chaînée
+ * @h: pointeur vers le début de la liste
+ *
+ * - Parcours depuis la tête jusqu'au dernier nœud.
+ * - Affiche chaque valeur (`n`) suivie d'un saut de ligne.
+ *
+ * Return: nombre de nœuds
+ */
 size_t print_dlistint(const dlistint_t *h)
 {
-	size_t count = 0;   /* compteur de nœuds */
-	const dlistint_t *current = h; /* pointeur qui parcourt la liste */
+	size_t count = 0;                 /* compteur de nœuds */
+	const dlistint_t *current = h;    /* pointeur pour parcourir la liste */
 
-	if (h == NULL)
+	if (h == NULL) /* liste vide */
 		return (0);
 
-	while (current != NULL)
+	while (current != NULL) /* tant qu'il reste un nœud */
 	{
-		printf("%d\n", current->n);
-		count++; /* compte +1 */
-		current = current->next; /* on avance */
+		printf("%d\n", current->n); /* affiche la valeur du nœud */
+		count++;                    /* incrémente le compteur */
+		current = current->next;    /* passe au nœud suivant */
 	}
+
 	return (count);
 }

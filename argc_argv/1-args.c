@@ -1,17 +1,21 @@
 #include <stdio.h>
-/**
-* main - prints the number of arguments passed into it.
-* @argc: integer
-* @argv: pointer
-*
-* Return: return a 0
-*/
 
+/* Affiche le nombre d’arguments passés au programme, sans compter le nom du programme */
+
+/**
+ * main - affiche le nombre d’arguments passés
+ * @argc: nombre total d’arguments (inclut le nom du programme)
+ * @argv: tableau des arguments (non utilisé ici)
+ *
+ * Return: 0
+ */
 int main(int argc, char **argv)
 {
+	/* On n’utilise pas argv, donc on le "void" pour éviter un warning */
 	(void)argv;
-	/* on a pas besoin de argv */
+
+	/* Affiche argc - 1 pour ne pas compter le nom du programme */
 	printf("%d\n", argc - 1);
-	/* print nb arguments sans compter le nom du program[0] */
+
 	return (0);
 }

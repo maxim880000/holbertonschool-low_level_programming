@@ -1,31 +1,37 @@
 #include "main.h"
 #include <stdlib.h>
+
+/* Alloue un tableau et initialise chaque case à 0, comme calloc */
+
 /**
-* _calloc - allocates memory for an array, using malloc.
-* @nmemb: integer
-* @size: integer 2
-*
-* Return: return a pointer
-*/
+ * _calloc - alloue de la mémoire pour un tableau et initialise à 0
+ * @nmemb: nombre d’éléments du tableau
+ * @size: taille de chaque élément en octets
+ *
+ * Return: pointeur vers la mémoire allouée, ou NULL si erreur
+ */
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	char *ptr;
 	unsigned int i;
 	unsigned int result;
-	/* vérifier paramètres */
+
+	/* Vérifie que les paramètres sont valides */
 	if (nmemb == 0 || size == 0)
 		return (NULL);
 
-	/* calcul taille totale */
+	/* Calcul de la taille totale à allouer */
 	result = nmemb * size;
 
-	/* alouer de la memoire*/
+	/* Alloue la mémoire */
 	ptr = malloc(result);
 	if (ptr == NULL)
 		return (NULL);
 
+	/* Initialise chaque octet à 0 */
 	for (i = 0; i < result; i++)
 		ptr[i] = 0;
 
+	/* Retourne le pointeur vers la mémoire allouée */
 	return ((void *)ptr);
 }

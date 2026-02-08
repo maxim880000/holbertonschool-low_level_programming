@@ -1,29 +1,27 @@
 #include "lists.h"
 
 /**
- * get_dnodeint_at_index - returns the nth node of a dlistint_t linked list.
- * @head: pointe vers head de la list (on commence la)
- * @index: La position (numéro) du nœud que nous cherchons
+ * get_dnodeint_at_index - retourne le nœud à la position index
+ * @head: pointeur vers la tête de la liste
+ * @index: position du nœud à récupérer (0 = premier nœud)
  *
- * Return: The address of the found node, or NULL if the node does not exist.
+ * - Parcourt la liste en comptant les nœuds
+ * - Retourne l'adresse du nœud quand count == index
+ *
+ * Return: adresse du nœud ou NULL si inexistant
  */
-
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
-	unsigned int count = 0; /* Un compteur */
+	unsigned int count = 0; /* compteur de position */
 
-	/* stop si 'head' (notre curseur) devient NULL (fin de liste) */
 	while (head != NULL)
 	{
-		/* le numéro de(count) = au numéro demandé (index) */
-		if (count == index)
-		{
-			return (head); /* oui on return ladresse du noeud actuel */
-		}
-		/* On passe au nœud suivant head pointe le nœud d'après. */
-		head = head->next;
+		if (count == index) /* si on est au bon index */
+			return (head);  /* retourne le nœud */
+
+		head = head->next; /* avancer au suivant */
 		count++;
 	}
-	/* Si la boucle est finie, fini la liste sans trouver l'index. */
-	return (NULL); /* null car le noeud existe pas dans cette position */
+
+	return (NULL); /* nœud non trouvé */
 }

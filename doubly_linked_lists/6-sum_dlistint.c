@@ -1,27 +1,23 @@
 #include "lists.h"
 
 /**
- * sum_dlistint - Calcule la somme de toutes les données (n) d'une liste
- * @head: L'adresse du 1ER nœud de la liste
+ * sum_dlistint - calcule la somme de toutes les valeurs 'n' d'une liste
+ * @head: adresse du premier nœud de la liste
  *
- * Return: La somme de toutes les valeurs 'n' ou 0 si la liste est vide
+ * - Parcourt la liste depuis la tête
+ * - Ajoute chaque nœud->n à la somme
+ * - Retourne 0 si la liste est vide
+ *
+ * Return: somme de tous les n ou 0 si liste vide
  */
 int sum_dlistint(dlistint_t *head)
 {
-	int sum = 0; /* stocke le total */
+	int sum = 0; /* total des valeurs */
 
-	/* Si la liste est vide (head est NULL) */
-	if (head == NULL)
-		return (0);
-
-	/* commence a head continue tant qu'il y a un nœud ou aller */
 	while (head != NULL)
 	{
-		/* met la valeur du nœud actuel (head->n) dans sum */
-		sum += head->n; /* C'est comme si sum = sum + head->n */
-
-		/* avance au suivant head prend l'adresse du suivant */
-		head = head->next;
+		sum += head->n; /* ajoute la valeur du nœud courant */
+		head = head->next; /* avance au nœud suivant */
 	}
 	return (sum);
 }

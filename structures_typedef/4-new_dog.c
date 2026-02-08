@@ -1,54 +1,58 @@
 #include <stdlib.h>
 #include "dog.h"
 
+/* Crée un nouveau chien avec des copies du nom et du propriétaire */
+
 /**
- * new_dog - crée un nouveau chien
+ * new_dog - crée un nouveau dog_t et initialise ses champs
  * @name: nom du chien
- * @age: âge du chie
- * @owner: propriétair du chien
+ * @age: âge du chien
+ * @owner: propriétaire du chien
  *
- * Return: pointeur vers dog_t ou NULL
+ * Return: pointeur vers dog_t ou NULL si erreur
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *d;        /* pointeur structure dog */
-	char *n, *p;     /* copies nom et owner */
-	int i;           /* compteur (index) boucle */
+	dog_t *d;        /* pointeur vers la structure dog */
+	char *n, *p;     /* copies du nom et du propriétaire */
+	int i;           /* compteur pour les boucles */
 
-	d = malloc(sizeof(dog_t));   /* alloue structure */
-	if (d == NULL)               /* vérif allocation */
-		return (NULL);           /* retourne NULL si echec */
+	/* Alloue la mémoire pour la structure dog */
+	d = malloc(sizeof(dog_t));
+	if (d == NULL)
+		return (NULL);
 
-	/* copie nom manuellement */
-	for (i = 0; name[i]; i++)   /* calcule longueur nom */
+	/* Copie le nom */
+	for (i = 0; name[i]; i++)   /* calcule la longueur de name */
 		;
-	n = malloc(i + 1);           /* alloue mémoire nom */
-	if (n == NULL)               /* vérif malloc */
+	n = malloc(i + 1);           /* alloue mémoire pour le nom */
+	if (n == NULL)               /* vérifie malloc */
 	{
-		free(d);                 /* lib structure */
-		return (NULL);           /* retourne NULL si echec */
+		free(d);                 /* libère structure si échec */
+		return (NULL);
 	}
-	for (i = 0; name[i]; i++)   /* copie chaque caractere */
+	for (i = 0; name[i]; i++)   /* copie caractère par caractère */
 		n[i] = name[i];
-	n[i] = '\0';                 /* fin de chaîne */
+	n[i] = '\0';                 /* termine la chaîne */
 
-	/* copie owner manuellement */
-	for (i = 0; owner[i]; i++)  /* calcule longueur owner */
+	/* Copie le propriétaire */
+	for (i = 0; owner[i]; i++)  /* calcule la longueur de owner */
 		;
-	p = malloc(i + 1);           /* alloue mémoire owner */
-	if (p == NULL)               /* vérif malloc */
+	p = malloc(i + 1);           /* alloue mémoire pour owner */
+	if (p == NULL)               /* vérifie malloc */
 	{
-		free(n);                 /* lib nom */
-		free(d);                 /* lib structure */
-		return (NULL);           /* retourne NULL si echec */
+		free(n);                 /* libère nom */
+		free(d);                 /* libère structure */
+		return (NULL);
 	}
-	for (i = 0; owner[i]; i++)  /* copie chaque caractere */
+	for (i = 0; owner[i]; i++)  /* copie caractère par caractère */
 		p[i] = owner[i];
-	p[i] = '\0';                 /* fin de chaîne */
+	p[i] = '\0';                 /* termine la chaîne */
 
-	d->name = n;       /* met nom dans structure */
-	d->age = age;      /* met age '''' */
-	d->owner = p;      /* met owner '''' */
+	/* Initialise les champs de la structure */
+	d->name = n;
+	d->age = age;
+	d->owner = p;
 
 	return (d);
 }

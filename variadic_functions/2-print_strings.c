@@ -7,33 +7,31 @@
  * @separator: texte entre les strings (ex: ", ") → peut être NULL
  * @n: nombre de strings à afficher
  *
- * Return: nothing
+ * - Utilise va_list pour parcourir les arguments variadiques.
+ *
+ * Return: rien
  */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
 	unsigned int i = 0;
 	va_list boite;
-	char *stock; /* ici on met chaque string qu’on récupère */
+	char *stock; /* stocke chaque string récupérée */
 
-	va_start(boite, n); /* on ouvre la boîte après n */
+	va_start(boite, n); /* initialise la boîte après n */
 
 	for (i = 0; i < n; i++)
 	{
-		stock = va_arg(boite, char *);
-		/* on récupère la prochaine string met dans stock */
+		stock = va_arg(boite, char *); /* récupère la prochaine string */
 
-		/* Si la string est NULL → on affiche (nil) */
-		if (stock == NULL)
+		if (stock == NULL)               /* string NULL → affiche (nil) */
 			printf("(nil)");
 		else
-			printf("%s", stock);
+			printf("%s", stock);        /* affiche la string */
 
-		/* On met le séparateur si n n’est pas au dernier élément */
-		/* et que separator n’est pas NULL */
-		if (i < n - 1 && separator != NULL)
+		if (i < n - 1 && separator != NULL) /* séparateur entre les strings */
 			printf("%s", separator);
 	}
 
-	va_end(boite); /* on ferme la boîte */
-	printf("\n");
+	va_end(boite); /* termine l'utilisation de la boîte */
+	printf("\n");  /* saut de ligne final */
 }

@@ -1,21 +1,24 @@
 #include "lists.h"
 
 /**
- * dlistint_len - returns the number of elements in a linked dlistint_t list
- * @h: Pointer to the head of the doubly linked list
+ * dlistint_len - retourne le nombre d'éléments dans une liste doublement chaînée
+ * @h: pointeur vers la tête de la liste
  *
- * Return: The number of nodes
+ * - Parcours depuis la tête jusqu'au dernier nœud.
+ * - Compte chaque nœud.
+ *
+ * Return: nombre de nœuds
  */
 size_t dlistint_len(const dlistint_t *h)
 {
-	size_t count = 0; /* Compteur de nœuds, initialisé à 0 */
-	const dlistint_t *current = h; /* Pointeur qui va parcourir la liste */
-									/* On initialise à la tête (h) */
+	size_t count = 0;                 /* compteur de nœuds */
+	const dlistint_t *current = h;    /* pointeur pour parcourir la liste */
 
-	while (current != NULL)
+	while (current != NULL)           /* tant qu'il reste un nœud */
 	{
-		count++;
-		current = current->next; /*  avance vers le nœud suivant avec next */
+		count++;                     /* incrémente le compteur */
+		current = current->next;     /* avance au nœud suivant */
 	}
+
 	return (count);
 }

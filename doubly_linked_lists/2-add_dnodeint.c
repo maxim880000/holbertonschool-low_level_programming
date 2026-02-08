@@ -1,30 +1,31 @@
 #include "lists.h"
 #include <stdlib.h>
+
 /**
- * add_dnodeint - Adds a new node at the beginning of a dlistint_t list.
- * @head: Double pointer to the head of the list (pointer to pointer).
- * @n: Integer value to store in the new node.s
+ * add_dnodeint - ajoute un nouveau nœud au début d'une liste doublement chaînée
+ * @head: double pointeur vers la tête de la liste
+ * @n: valeur entière à stocker dans le nouveau nœud
  *
- * Return: Address of the new node, or NULL if malloc failed.
+ * - Nouveau nœud devient la tête.
+ * - prev du nouveau nœud = NULL.
+ * - Si liste non vide, ancien head->prev = nouveau nœud.
+ *
+ * Return: adresse du nouveau nœud, ou NULL si échec malloc
  */
 dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 {
-	/* Allouer la mémoire pour le nouveau nœud */
-	dlistint_t *new_node = malloc(sizeof(dlistint_t));
-
-	/* Si malloc échoue → on retourne NULL immédiatement */
-	if (new_node == NULL)
+	dlistint_t *new_node = malloc(sizeof(dlistint_t)); /* allocation du nouveau nœud */
+	if (new_node == NULL)                              /* échec malloc */
 		return (NULL);
 
-	new_node->n = n; /* ke rempli le new_node avec n */
-	new_node->prev = NULL; /* pas de noeud avant donc pointe vers rien */
-	new_node->next = *head; /* *head: ancien 1ER, c mon suivant */
+	new_node->n = n;       /* stocker la valeur */
+	new_node->prev = NULL; /* pas de nœud avant */
+	new_node->next = *head;/* ancien head devient le suivant */
 
-	/* si la liste n'est pas vide */
-	if (*head != NULL)
-		(*head)->prev = new_node; /* on change head aura l'adresse de new_node */
+	if (*head != NULL)          /* si liste non vide */
+		(*head)->prev = new_node; /* relier l'ancien head au nouveau */
 
-	*head = new_node; /* change de tete */
+	*head = new_node;          /* mise à jour de la tête */
 
-	return (new_node); /* adresse du nouveau */
+	return (new_node);          /* retourner le nouveau nœud */
 }

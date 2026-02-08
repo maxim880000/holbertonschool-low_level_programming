@@ -1,21 +1,24 @@
 #include "main.h"
 #include <stdio.h>
-/**
-* factorial - returns the factorial of a given number.
-* @n: integer
-*
-* Return: -1 if n is lower than 0
-*/
 
+/* Calcule la factorielle d’un nombre en utilisant la récursion */
+
+/**
+ * factorial - retourne la factorielle d’un entier
+ * @n: entier dont on veut la factorielle
+ *
+ * Return: -1 si n < 0, sinon la factorielle
+ */
 int factorial(int n)
 {
-    if (n < 0)          // nombre négatif → impossible
+    /* Cas d’erreur : nombre négatif */
+    if (n < 0)
         return (-1);
 
-    if (n == 0 || n == 1)   // 0 et 1 ont toujours 1 comme factorielle
+    /* Cas de base : 0! = 1! = 1 */
+    if (n == 0 || n == 1)
         return (1);
 
-    // sinon on multiplie n par la factorielle de (n-1)
-    // la fonction s'appelle elle-même jusqu'à arriver à 1
+    /* Appel récursif : n! = n * (n-1)! */
     return n * factorial(n - 1);
 }

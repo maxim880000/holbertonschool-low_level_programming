@@ -1,37 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-/* pour avoir isdigit */
+#include <ctype.h> /* pour utiliser isdigit */
+
+/* Vérifie si une chaîne contient uniquement des chiffres */
 
 /**
- * number_yn - vérifie si une chaîne contient que des chiffres
- * @s: la chaîne à vérifier
+ * number_yn - retourne 1 si la chaîne contient uniquement des chiffres, 0 sinon
+ * @s: chaîne à vérifier
  *
- * Return: 1 si c’est un nombre sinon 0
+ * Return: 1 si chaîne valide, 0 sinon
  */
 int number_yn(char *s)
 {
 	int i;
 
-	/* si la chaine est vide faux */
+	/* Chaîne vide → pas un nombre */
 	if (s[0] == '\0')
 		return (0);
 
-	/* on parcours chaque caractère du tableau */
+	/* Parcourt chaque caractère */
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		/* si ce n'est pas un chiffre alors faux r(0) */
+		/* Si un caractère n’est pas un chiffre, retourne 0 */
 		if (!isdigit(s[i]))
 			return (0);
 	}
-	/* autrement si c un chiffre vrai r(1) */
+
+	/* Tous les caractères sont des chiffres → retourne 1 */
 	return (1);
 }
 
+/* Additionne tous les nombres positifs passés en arguments */
+
 /**
- * main - additionne tous les nombres positifs passés en arguments
+ * main - additionne les nombres passés en arguments
  * @argc: nombre d’arguments
- * @argv: tableau d’arguments
+ * @argv: tableau des arguments
  *
  * Return: 0 si succès, 1 si erreur
  */
@@ -40,27 +44,28 @@ int main(int argc, char **argv)
 	int i;
 	int sm = 0;
 
-	/* si il y a pas de nombre r(0) car argc == 1 = argv [0] */
+	/* Aucun nombre passé → affiche 0 */
 	if (argc == 1)
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	/* on veut parcourir tout depuis argv[1] car [0] = nom, i<nb arg */
+	/* Parcourt tous les arguments à partir de argv[1] */
 	for (i = 1; i < argc; i++)
 	{
-		/* conditions la chaine ne contient pas que des chiffres alors: */
+		/* Si l’argument n’est pas un nombre, affiche Error et quitte */
 		if (!number_yn(argv[i]))
 		{
 			printf("Error\n");
 			return (1);
 		}
 
-		/* on convertit la chaine en entier et on met dans sm */
+		/* Convertit la chaîne en entier et ajoute au total */
 		sm += atoi(argv[i]);
 	}
 
+	/* Affiche le total */
 	printf("%d\n", sm);
 
 	return (0);
